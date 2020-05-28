@@ -168,7 +168,7 @@ public class RaidPlugin extends JavaPlugin {
     }
 
     public boolean isRaidPlot(Plot plot) {
-        return plot.getWorldName().equalsIgnoreCase(this.getConfig().getString("plot-world"));
+        return plot.getArea().worldname.equalsIgnoreCase(this.getConfig().getString("plot-world"));
     }
 
     public Material getPlotWallType() {

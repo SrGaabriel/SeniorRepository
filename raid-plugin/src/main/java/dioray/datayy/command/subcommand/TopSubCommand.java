@@ -10,8 +10,6 @@ import dioray.datayy.util.Util;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.SkullType;
-import org.bukkit.craftbukkit.v1_12_R1.block.CraftSkull;
-import org.bukkit.craftbukkit.v1_12_R1.inventory.CraftItemFactory;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
