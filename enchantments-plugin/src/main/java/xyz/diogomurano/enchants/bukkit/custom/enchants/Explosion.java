@@ -18,7 +18,7 @@ import xyz.diogomurano.enchants.custom.CustomEnchantService;
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 
-public class Explosion extends AbstractCustomEnchant {
+public final class Explosion extends AbstractCustomEnchant {
 
     private final Map<Location, Player> explosionPlayer;
     private final CustomEnchantService enchantService;
@@ -31,7 +31,7 @@ public class Explosion extends AbstractCustomEnchant {
     }
 
     @Override
-    public void run(Player player, Block block, int level) {
+    public final void run(Player player, Block block, int level) {
         float chance = this.calculateChance(level);
 
         if (ThreadLocalRandom.current().nextFloat() <= chance) {
@@ -43,7 +43,7 @@ public class Explosion extends AbstractCustomEnchant {
     }
 
     @EventHandler
-    public void onBlockExplodeEvent(BlockExplodeEvent event) {
+    public final void onBlockExplodeEvent(BlockExplodeEvent event) {
         final Player player = explosionPlayer.remove(event.getBlock().getLocation());
         if (player != null) {
             event.setCancelled(true);
@@ -68,14 +68,14 @@ public class Explosion extends AbstractCustomEnchant {
     }
 
     @EventHandler
-    public void onEntityDamageEvent(EntityDamageEvent event) {
+    public final void onEntityDamageEvent(EntityDamageEvent event) {
         if (event.getEntity() instanceof Player && event.getCause() == EntityDamageEvent.DamageCause.BLOCK_EXPLOSION) {
             event.setCancelled(true);
         }
     }
 
     @Override
-    public List<String> getLore() {
+    public final List<String> getLore() {
         return Arrays.asList("§7A little bit that drill");
     }
 }

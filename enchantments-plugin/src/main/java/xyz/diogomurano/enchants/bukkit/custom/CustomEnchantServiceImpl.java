@@ -4,7 +4,10 @@ import com.google.common.collect.ImmutableList;
 import xyz.diogomurano.enchants.custom.CustomEnchant;
 import xyz.diogomurano.enchants.custom.CustomEnchantService;
 
-import java.util.*;
+import java.util.LinkedHashSet;
+import java.util.Objects;
+import java.util.Set;
+import java.util.UUID;
 import java.util.function.Predicate;
 
 public class CustomEnchantServiceImpl implements CustomEnchantService {
@@ -21,24 +24,24 @@ public class CustomEnchantServiceImpl implements CustomEnchantService {
     }
 
     @Override
-    public void add(CustomEnchant enchant) {
+    public final void add(CustomEnchant enchant) {
         Objects.requireNonNull(enchant, "enchant can't be null.");
         this.enchants.add(enchant);
     }
 
     @Override
-    public void remove(CustomEnchant enchant) {
+    public final void remove(CustomEnchant enchant) {
         Objects.requireNonNull(enchant, "enchant can't be null.");
         this.enchants.remove(enchant);
     }
 
     @Override
-    public CustomEnchant get(UUID uniqueId) {
+    public final CustomEnchant get(UUID uniqueId) {
         return find(enchant -> enchant.getUniqueId().equals(uniqueId));
     }
 
     @Override
-    public CustomEnchant get(String name) {
+    public final CustomEnchant get(String name) {
         return find(enchant -> enchant.getName().equalsIgnoreCase(name));
     }
 

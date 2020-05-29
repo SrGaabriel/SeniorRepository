@@ -7,8 +7,6 @@ import dioray.datayy.database.TeamPlayerDao;
 import dioray.datayy.model.Role;
 import dioray.datayy.model.Team;
 import dioray.datayy.model.TeamPlayer;
-import dioray.datayy.service.MessageService;
-import dioray.datayy.service.TeamPlayerService;
 import dioray.datayy.service.TeamService;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.HoverEvent;
@@ -67,9 +65,7 @@ public class LeaveSubCommand extends SubCommand {
 
                     plotWallDao.deleteAll(team.getPlot());
 
-                    team.getPlot().deletePlot(() -> {
-                        this.main.getLogger().info(team.getTag() + " had it plot deleted due to owner leave");
-                    });
+                    team.getPlot().deletePlot(() -> this.main.getLogger().info(team.getTag() + " had it plot deleted due to owner leave"));
 
                     TeamDao teamDao = this.main.getTeamDao();
 

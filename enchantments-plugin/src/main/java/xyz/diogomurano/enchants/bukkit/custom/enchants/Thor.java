@@ -23,7 +23,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.UUID;
 
-public class Thor extends AbstractCustomEnchant {
+public final class Thor extends AbstractCustomEnchant {
 
     private final CustomEnchantService enchantService;
     private final Random random;
@@ -44,13 +44,13 @@ public class Thor extends AbstractCustomEnchant {
     }
 
     @Override
-    public void run(Player player, Block block, int level) {
+    public final void run(Player player, Block block, int level) {
         float chance = this.calculateChance(level);
 
         if (random.nextFloat() <= chance) {
             final Location blockLocation = block.getLocation();
 
-            Mine originMine = Mines.getAPI().getByLocation(block.getLocation());
+            final Mine originMine = Mines.getAPI().getByLocation(block.getLocation());
 
             player.playSound(blockLocation, Sound.ENTITY_LIGHTNING_THUNDER, 1, 1);
             destroyLighting(blockLocation, player, level, originMine);
@@ -154,7 +154,7 @@ public class Thor extends AbstractCustomEnchant {
     }
 
     @Override
-    public List<String> getLore() {
+    public final List<String> getLore() {
         return Arrays.asList("§7Lightning strikes and makes streaks", "§7on the floor like lightning\n");
     }
 }

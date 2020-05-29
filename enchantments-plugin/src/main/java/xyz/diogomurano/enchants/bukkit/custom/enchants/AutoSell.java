@@ -8,17 +8,17 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
-public class AutoSell extends AbstractCustomEnchant {
+public final class AutoSell extends AbstractCustomEnchant {
 
     public AutoSell() {
         super(UUID.randomUUID(), "AutoSell");
     }
 
     @Override
-    public void run(Player player, Block block, int level) {}
+    public final void run(Player player, Block block, int level) {}
 
     @Override
-    public List<String> getLore() {
+    public final List<String> getLore() {
         return Arrays.asList("§7Automatically sell everything you mine");
     }
 }

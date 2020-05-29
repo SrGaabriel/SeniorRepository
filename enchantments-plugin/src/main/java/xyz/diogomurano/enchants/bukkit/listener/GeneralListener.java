@@ -1,10 +1,6 @@
 package xyz.diogomurano.enchants.bukkit.listener;
 
-import me.clip.autosell.AutoSell;
-import me.clip.autosell.EcoUtil;
-import me.clip.autosell.events.AutoSellEvent;
 import me.clip.autosell.events.SellAllEvent;
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
@@ -34,16 +30,14 @@ import java.util.Random;
 public class GeneralListener implements Listener {
 
     private final EnchantmentPlugin plugin;
-    private final Random random;
+    private final Random random = new Random();
 
-    public GeneralListener(EnchantmentPlugin plugin) {
+    public GeneralListener(final EnchantmentPlugin plugin) {
         this.plugin = plugin;
-
-        this.random = new Random();
     }
 
     @EventHandler
-    public void onBlockBreakEvent(BlockBreakEvent event) {
+    public void onBlockBreakEvent(final BlockBreakEvent event) {
         final Player player = event.getPlayer();
 
         Block block = event.getBlock();
@@ -71,7 +65,7 @@ public class GeneralListener implements Listener {
             }
         }
 
-        ItemStack drop = BlockUtil.getItem(block);
+        final ItemStack drop = BlockUtil.getItem(block);
 
         final CustomEnchant fortune = plugin.getEnchantService().get("Fortune");
         if (fortune != null && fortune.hasEnchantment(hand)) {
@@ -88,7 +82,7 @@ public class GeneralListener implements Listener {
     }
 
     @EventHandler
-    public void onBlockPlaceEvent(BlockPlaceEvent event) {
+    public final void onBlockPlaceEvent(BlockPlaceEvent event) {
         final ItemStack itemInMainHand = event.getItemInHand();
         if (itemInMainHand.hasItemMeta() && itemInMainHand.getItemMeta().hasDisplayName() && itemInMainHand.getItemMeta().getDisplayName().equals("§b§lMINING BACKPACK") && itemInMainHand.getType() == Material.CHEST) {
             event.setCancelled(true);
@@ -97,7 +91,7 @@ public class GeneralListener implements Listener {
     }
 
     @EventHandler
-    public void onPlayerInteractEvent(PlayerInteractEvent event) {
+    public final void onPlayerInteractEvent(PlayerInteractEvent event) {
         if (event.getAction() != Action.RIGHT_CLICK_AIR && event.getAction() != Action.RIGHT_CLICK_BLOCK) return;
 
         Player player = event.getPlayer();
@@ -113,20 +107,20 @@ public class GeneralListener implements Listener {
     }
 
     @EventHandler
-    public void onPlayerQuitEvent(PlayerQuitEvent event) {
+    public final void onPlayerQuitEvent(final PlayerQuitEvent event) {
         User.removeSelected(event.getPlayer());
     }
 
     @EventHandler
-    public void onPlayerKickEvent(PlayerKickEvent event) {
+    public final void onPlayerKickEvent(final PlayerKickEvent event) {
         User.removeSelected(event.getPlayer());
     }
 
     @EventHandler
-    public void onSellAll(SellAllEvent event) {
-        float[] backpackData = User.sellBackpack(event.getPlayer());
-        float backpackTotalCoins = backpackData[0];
-        int backpackTotalItems = (int) backpackData[1];
+    public final void onSellAll(final SellAllEvent event) {
+        final float[] backpackData = User.sellBackpack(event.getPlayer());
+        final float backpackTotalCoins = backpackData[0];
+        final int backpackTotalItems = (int) backpackData[1];
 
         event.setTotalCost(event.getTotalCost() + backpackTotalCoins);
         event.setTotalItems(event.getTotalItems() + backpackTotalItems);
@@ -134,16 +128,16 @@ public class GeneralListener implements Listener {
 
     @EventHandler
     public void onPlayerItemHeld(PlayerItemHeldEvent event) {
-        Player player = event.getPlayer();
-        ItemStack newItemStack = player.getInventory().getItem(event.getNewSlot());
-        ItemStack oldItemStack = player.getInventory().getItem(event.getPreviousSlot());
+        final Player player = event.getPlayer();
+        final ItemStack newItemStack = player.getInventory().getItem(event.getNewSlot());
+        final ItemStack oldItemStack = player.getInventory().getItem(event.getPreviousSlot());
 
-        CustomEnchant haste = this.plugin.getEnchantService().get("haste");
-        CustomEnchant speed = this.plugin.getEnchantService().get("speed");
+        final CustomEnchant haste = this.plugin.getEnchantService().get("haste");
+        final CustomEnchant speed = this.plugin.getEnchantService().get("speed");
 
         if (newItemStack != null && newItemStack.getType().name().contains("PICKAXE")) {
-            int hasteLevel = haste.getEnchantmentLevel(newItemStack);
-            int speedLevel = speed.getEnchantmentLevel(newItemStack);
+            final int hasteLevel = haste.getEnchantmentLevel(newItemStack);
+            final int speedLevel = speed.getEnchantmentLevel(newItemStack);
 
             if (hasteLevel > 0) {
                 player.removePotionEffect(PotionEffectType.FAST_DIGGING);
@@ -155,8 +149,8 @@ public class GeneralListener implements Listener {
                 player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, Integer.MAX_VALUE, speedLevel - 1));
             }
         } else if (oldItemStack != null && oldItemStack.getType().name().contains("PICKAXE")) {
-            int hasteLevel = haste.getEnchantmentLevel(oldItemStack);
-            int speedLevel = speed.getEnchantmentLevel(oldItemStack);
+            final int hasteLevel = haste.getEnchantmentLevel(oldItemStack);
+            final int speedLevel = speed.getEnchantmentLevel(oldItemStack);
 
             if (hasteLevel > 0) {
                 player.removePotionEffect(PotionEffectType.FAST_DIGGING);

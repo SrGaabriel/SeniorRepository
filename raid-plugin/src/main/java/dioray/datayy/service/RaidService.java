@@ -9,8 +9,8 @@ import com.intellectualcrafters.plot.object.PlotId;
 import dioray.datayy.RaidPlugin;
 import dioray.datayy.database.PlotWallDao;
 import dioray.datayy.database.TeamDao;
-import dioray.datayy.model.Team;
 import dioray.datayy.model.PlotWall;
+import dioray.datayy.model.Team;
 import dioray.datayy.model.TeamPlayer;
 import dioray.datayy.util.Util;
 import net.md_5.bungee.api.chat.ClickEvent;
@@ -67,7 +67,7 @@ public class RaidService extends Service {
 
             Plot plot = raidableTeam.getPlot();
 
-            team.setSelectedPlot(plot.getId().toCommaSeparatedString());
+            team.setSelectedPlot(plot.getId().toString());
             team.setRemainingTime(Util.currentTimeSeconds() + 30);
 
             this.main.getServer().getScheduler().runTask(this.main, () -> {
@@ -115,19 +115,17 @@ public class RaidService extends Service {
         teamDao.updateLastRaid(plotTeam);
 
         for (TeamPlayer teamPlayer : team.getOnlinePlayers()) {
-            plot.addTrusted(teamPlayer.getUUID());
+            plot.addTrusted(teamPlayer.getUuid());
             messageService.sendMessage(teamPlayer.getPlayer(), "raid.start");
         }
 
-        plotWallService.fetchFromDatabase(plot, (plotWallList) -> {
-            this.main.getServer().getScheduler().runTask(this.main, () -> {
-                World world = Bukkit.getWorld(plot.getWorldName());
+        plotWallService.fetchFromDatabase(plot, (plotWallList) -> this.main.getServer().getScheduler().runTask(this.main, () -> {
+            World world = Bukkit.getWorld(plot.getHome().getWorld());
 
-                for (PlotWall plotWall : plotWallList) {
-                    plotWall.spawnHologram(world);
-                }
-            });
-        });
+            for (PlotWall plotWall : plotWallList) {
+                plotWall.spawnHologram(world);
+            }
+        }));
 
         TextComponent component = new TextComponent(messageService.get("raid.being-raided"));
         component.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/raid see"));

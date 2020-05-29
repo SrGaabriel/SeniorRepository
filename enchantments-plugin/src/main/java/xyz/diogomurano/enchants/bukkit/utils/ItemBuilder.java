@@ -1,17 +1,8 @@
 package xyz.diogomurano.enchants.bukkit.utils;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.UUID;
-import java.util.function.Consumer;
-
 import com.comphenix.protocol.utility.MinecraftReflection;
 import com.comphenix.protocol.wrappers.nbt.NbtCompound;
 import com.comphenix.protocol.wrappers.nbt.NbtFactory;
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
@@ -20,16 +11,19 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.function.Consumer;
+
 public class ItemBuilder {
 
     private final ItemStack item;
 
-    private ItemBuilder(ItemStack item) {
-        this.item = item;
-    }
-
-    public static ItemBuilder create(Material material) {
-        return new ItemBuilder(new ItemStack(material));
+    public ItemBuilder(Material item) {
+        this.item = new ItemStack(item);
     }
 
     public ItemBuilder changeItem(Consumer<ItemStack> consumer) {

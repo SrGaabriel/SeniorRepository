@@ -1,22 +1,17 @@
 package xyz.diogomurano.enchants.bukkit.inventory;
 
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.SkullType;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
-import xyz.diogomurano.enchants.bukkit.BukkitEnchantmentPlugin;
 import xyz.diogomurano.enchants.bukkit.item.Backpack;
 import xyz.diogomurano.enchants.bukkit.item.BackpackInfo;
-import xyz.diogomurano.enchants.bukkit.item.Voucher;
 import xyz.diogomurano.enchants.bukkit.user.User;
 import xyz.diogomurano.enchants.bukkit.utils.ItemBuilder;
 import xyz.diogomurano.enchants.bukkit.utils.ItemNBT;
-import xyz.diogomurano.enchants.bukkit.utils.menu.Menu;
-import xyz.diogomurano.enchants.custom.CustomEnchantService;
 
 public class BackpackUpgradeInventory implements InventoryHolder {
 
@@ -42,8 +37,7 @@ public class BackpackUpgradeInventory implements InventoryHolder {
 
         Inventory inventory = Bukkit.createInventory(this, 9 * 3, "Backpack Upgrade Menu");
 
-        inventory.setItem(13, ItemBuilder
-                .create(Material.SKULL_ITEM)
+        inventory.setItem(13, new ItemBuilder(Material.SKULL_ITEM)
                 .owner("Chest")
                 .durability(SkullType.PLAYER.ordinal())
                 .name("§b§lMINING BACKPACK")

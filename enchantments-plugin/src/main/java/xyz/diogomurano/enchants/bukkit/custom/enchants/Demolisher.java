@@ -17,10 +17,12 @@ import xyz.diogomurano.enchants.bukkit.utils.BlockUtil;
 import xyz.diogomurano.enchants.custom.CustomEnchant;
 import xyz.diogomurano.enchants.custom.CustomEnchantService;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.List;
+import java.util.UUID;
 import java.util.concurrent.ThreadLocalRandom;
 
-public class Demolisher extends AbstractCustomEnchant {
+public final class Demolisher extends AbstractCustomEnchant {
 
     private final int MAX_RANGE;
     private final CustomEnchantService enchantService;
@@ -44,7 +46,7 @@ public class Demolisher extends AbstractCustomEnchant {
             location.add(-MAX_RANGE, 0, -MAX_RANGE);
             location2.add(MAX_RANGE, 0, MAX_RANGE);
 
-            Mine originMine = Mines.getAPI().getByLocation(block.getLocation());
+            com.asylumdevs.mines.mine.BaseMine originMine = Mines.getAPI().getByLocation(block.getLocation());
 
             CustomEnchant fortune = this.enchantService.get("Fortune");
 
@@ -88,7 +90,8 @@ public class Demolisher extends AbstractCustomEnchant {
 
                             User.addItem(player, drop);
 
-                            ItemStack newHand = User.handleCounter(player, hand, false);
+                            final ItemStack newHand = User.handleCounter(player, hand, false);
+
                             if (newHand != null) {
                                 hand = newHand;
                             }

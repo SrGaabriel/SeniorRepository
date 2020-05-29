@@ -1,12 +1,9 @@
 package dioray.datayy.command.subcommand;
 
 import com.intellectualcrafters.plot.object.Plot;
-import com.intellectualcrafters.plot.object.PlotArea;
 import dioray.datayy.RaidPlugin;
 import dioray.datayy.model.Team;
 import dioray.datayy.model.TeamPlayer;
-import dioray.datayy.service.MessageService;
-import dioray.datayy.service.TeamPlayerService;
 import dioray.datayy.service.TeamService;
 import dioray.datayy.util.Util;
 import org.bukkit.entity.Player;

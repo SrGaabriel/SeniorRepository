@@ -10,22 +10,22 @@ import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
-public class Efficiency extends AbstractCustomEnchant {
+public final class Efficiency extends AbstractCustomEnchant {
 
     public Efficiency() {
         super(UUID.randomUUID(), "Efficiency");
     }
 
     @Override
-    public void run(Player player, Block block, int level) {}
+    public final void run(Player player, Block block, int level) {}
 
     @Override
-    public List<String> getLore() {
+    public final List<String> getLore() {
         return Collections.singletonList("§7Break the blocks faster");
     }
 
     @Override
-    public void addEnchantment(ItemStack stack, Integer level) {
+    public final void addEnchantment(ItemStack stack, Integer level) {
         stack.addUnsafeEnchantment(Enchantment.DIG_SPEED, level);
 
         super.addEnchantment(stack, level);

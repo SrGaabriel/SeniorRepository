@@ -11,8 +11,6 @@ import dioray.datayy.database.TeamPlayerDao;
 import dioray.datayy.model.Role;
 import dioray.datayy.model.Team;
 import dioray.datayy.model.TeamPlayer;
-import dioray.datayy.service.MessageService;
-import dioray.datayy.service.TeamPlayerService;
 import dioray.datayy.service.TeamService;
 import dioray.datayy.util.Util;
 import net.milkbowl.vault.economy.EconomyResponse;
@@ -110,7 +108,7 @@ public class TeamSubCommand extends SubCommand {
         PlotArea plotArea = this.main.getPlotArea();
         PlotPlayer plotPlayer = PlotPlayer.wrap(player);
 
-        Plot freePlot = plotArea.getNextFreePlot(plotPlayer, new PlotId(0, 0));
+        /* TODO Plot freePlot = plotArea.getNextFreePlot(plotPlayer, new PlotId(0, 0));
         plotArea.getPlotManager().claimPlot(plotArea, freePlot);
         freePlot.setOwner(player.getUniqueId());
 
@@ -128,7 +126,7 @@ public class TeamSubCommand extends SubCommand {
         teamPlayerDao.update(teamPlayer);
 
         team.addPlayer(teamPlayer);
-        messageService.sendMessage(player, "command.raid.team.success");
+        messageService.sendMessage(player, "command.raid.team.success");*/
     }
 
 }

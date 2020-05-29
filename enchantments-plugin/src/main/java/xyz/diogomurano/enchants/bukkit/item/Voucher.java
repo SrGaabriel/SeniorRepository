@@ -10,8 +10,7 @@ public class Voucher {
     private static final String NAME = ChatColor.translateAlternateColorCodes('&', "&b&lAutoSell Voucher &7(Click on Autosell in the GUI)");
 
     public static ItemStack create() {
-        return ItemBuilder
-                .create(Material.PAPER)
+        return new ItemBuilder(Material.PAPER)
                 .amount(1)
                 .name(NAME)
                 .lore(

@@ -4,7 +4,6 @@ import dioray.datayy.RaidPlugin;
 import dioray.datayy.model.Team;
 import dioray.datayy.model.TeamPlayer;
 import dioray.datayy.service.InviteService;
-import dioray.datayy.service.MessageService;
 import org.bukkit.entity.Player;
 
 public class DenySubCommand extends SubCommand {

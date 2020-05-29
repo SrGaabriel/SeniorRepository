@@ -52,8 +52,7 @@ public class PickaxeInventory implements InventoryHolder {
 
             final String fCountLoreLine = countLoreLine;
 
-            inventory.setItem(slot, ItemBuilder
-                    .create(Material.ENCHANTED_BOOK)
+            inventory.setItem(slot, new ItemBuilder(Material.ENCHANTED_BOOK)
                     .name("§b" + enchant.getName())
                     .lore(lore -> {
                         lore.add("");
@@ -74,7 +73,6 @@ public class PickaxeInventory implements InventoryHolder {
                 slot += 2;
             }
         }
-
         player.openInventory(inventory);
     }
 

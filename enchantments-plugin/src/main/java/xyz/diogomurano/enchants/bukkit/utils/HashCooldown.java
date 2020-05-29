@@ -4,10 +4,10 @@ import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.Map;
 
-public class HashCooldown<T> {
+public final class HashCooldown<T> {
 
-    private Map<Integer, Long> map;
-    private DecimalFormat decimalFormat;
+    private final Map<Integer, Long> map;
+    private final DecimalFormat decimalFormat;
 
     public HashCooldown() {
         map = new HashMap<>();
@@ -15,12 +15,12 @@ public class HashCooldown<T> {
         decimalFormat = new DecimalFormat("#.#");
     }
 
-    public void insert(T o, long time) {
+    public final void insert(T o, long time) {
         if (o != null && time > 0)
             map.put(o.hashCode(), System.currentTimeMillis() + time);
     }
 
-    public String getReamingSeconds(T o) {
+    public final String getReamingSeconds(T o) {
         if (o != null) {
             Long l = map.get(o.hashCode());
             if (l != null) {
@@ -31,7 +31,7 @@ public class HashCooldown<T> {
         return "";
     }
 
-    public long getTime(T o) {
+    public final long getTime(T o) {
         if (o != null) {
             Long l = map.get(o.hashCode());
             if (l != null) {
@@ -41,7 +41,7 @@ public class HashCooldown<T> {
         return 0;
     }
 
-    public boolean isWaiting(T o) {
+    public final boolean isWaiting(T o) {
         int i = o.hashCode();
         return map.containsKey(i) && map.get(i) > System.currentTimeMillis();
     }

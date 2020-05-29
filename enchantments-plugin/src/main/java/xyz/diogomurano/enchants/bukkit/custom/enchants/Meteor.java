@@ -14,7 +14,7 @@ import xyz.diogomurano.enchants.custom.CustomEnchantService;
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 
-public class Meteor extends AbstractCustomEnchant {
+public final class Meteor extends AbstractCustomEnchant {
 
     private final CustomEnchantService enchantService;
 
@@ -25,7 +25,7 @@ public class Meteor extends AbstractCustomEnchant {
     }
 
     @Override
-    public void run(Player player, Block block, int level) {
+    public final void run(Player player, Block block, int level) {
         float chance = this.calculateChance(level);
 
         if (ThreadLocalRandom.current().nextFloat() <= chance) {
@@ -50,7 +50,7 @@ public class Meteor extends AbstractCustomEnchant {
         }
     }
 
-    public Set<Block> sphere(final Location center, final int radius) {
+    public final Set<Block> sphere(final Location center, final int radius) {
         Set<Block> sphere = new HashSet<>();
 
         for (int Y = -radius; Y < radius; Y++) {
@@ -69,7 +69,7 @@ public class Meteor extends AbstractCustomEnchant {
     }
 
     @Override
-    public List<String> getLore() {
+    public final List<String> getLore() {
         return Arrays.asList("§7Make a big crater");
     }
 }

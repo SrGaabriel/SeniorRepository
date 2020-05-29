@@ -20,24 +20,24 @@ import xyz.diogomurano.enchants.bukkit.utils.ItemNBT;
 import xyz.diogomurano.enchants.custom.CustomEnchant;
 import xyz.diogomurano.enchants.custom.CustomEnchantService;
 
-public class InventoryListener implements Listener {
+public final class InventoryListener implements Listener {
 
     private final CustomEnchantService enchantService;
 
-    public InventoryListener(EnchantmentPlugin plugin) {
+    public InventoryListener(final EnchantmentPlugin plugin) {
         this.enchantService = plugin.getEnchantService();
     }
 
     @EventHandler
-    public void onInventoryClick(InventoryClickEvent event) {
+    public void onInventoryClick(final InventoryClickEvent event) {
         if (event.getCurrentItem() == null) return;
 
-        Player player = (Player) event.getWhoClicked();
+        final Player player = (Player) event.getWhoClicked();
 
         Inventory topInventory = event.getWhoClicked().getOpenInventory().getTopInventory();
         if (topInventory.getHolder() instanceof PickaxeInventory) {
-            ItemStack cursor = event.getCursor();
-            ItemStack itemStack = event.getCurrentItem();
+            final ItemStack cursor = event.getCursor();
+            final ItemStack itemStack = event.getCurrentItem();
 
             event.setCancelled(true);
 
@@ -48,7 +48,7 @@ public class InventoryListener implements Listener {
             }
 
             if (itemStack.getType() == Material.ENCHANTED_BOOK) {
-                ItemStack hand = player.getInventory().getItemInMainHand();
+                final ItemStack hand = player.getInventory().getItemInMainHand();
 
                 if (!hand.getType().name().contains("PICKAXE")) return;
 
@@ -73,7 +73,7 @@ public class InventoryListener implements Listener {
                 if (counter == User.Counter.AUTOSELL && event.getAction() == InventoryAction.SWAP_WITH_CURSOR && Voucher.isVoucher(cursor)) {
                     event.setCursor(null);
 
-                    int level = enchant.getEnchantmentLevel(hand);
+                    final int level = enchant.getEnchantmentLevel(hand);
 
                     if (level >= enchant.getMaxLevel()) {
                         player.sendMessage(ChatColor.RED + "The AutoSell enchant is already maxed");

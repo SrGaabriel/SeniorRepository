@@ -8,7 +8,7 @@ import xyz.diogomurano.enchants.bukkit.custom.AbstractCustomEnchant;
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 
-public class KeyGen extends AbstractCustomEnchant {
+public final class KeyGen extends AbstractCustomEnchant {
 
     private final Map<String, Double> commands;
 
@@ -26,7 +26,7 @@ public class KeyGen extends AbstractCustomEnchant {
     }
 
     @Override
-    public void run(Player player, Block block, int level) {
+    public final void run(Player player, Block block, int level) {
         float chance = this.calculateChance(level);
 
         if (ThreadLocalRandom.current().nextFloat() <= chance) {
@@ -41,7 +41,7 @@ public class KeyGen extends AbstractCustomEnchant {
     }
 
     @Override
-    public List<String> getLore() {
+    public final List<String> getLore() {
         return Collections.singletonList("§7Chance to give a key on drop");
     }
 

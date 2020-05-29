@@ -1,7 +1,6 @@
 package dioray.datayy.command.subcommand;
 
 import dioray.datayy.RaidPlugin;
-import dioray.datayy.service.MessageService;
 import org.bukkit.entity.Player;
 
 public class ReloadSubCommand extends SubCommand {

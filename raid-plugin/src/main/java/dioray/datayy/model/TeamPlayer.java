@@ -1,10 +1,12 @@
 package dioray.datayy.model;
 
+import lombok.Data;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import java.util.UUID;
 
+@Data
 public class TeamPlayer {
 
     private final UUID uuid;
@@ -22,26 +24,6 @@ public class TeamPlayer {
         }
     }
 
-    public UUID getUUID() {
-        return uuid;
-    }
-
-    public Team getTeam() {
-        return team;
-    }
-
-    public void setTeam(Team team) {
-        this.team = team;
-    }
-
-    public Role getRole() {
-        return role;
-    }
-
-    public void setRole(Role role) {
-        this.role = role;
-    }
-
     public Player getPlayer() {
         return Bukkit.getPlayer(this.uuid);
     }
@@ -55,15 +37,6 @@ public class TeamPlayer {
 
     public boolean checkBlockBreak() {
         return true;
-
-        /*this.valueCounter++;
-        if (valueCounter >= 1000) {
-            this.valueCounter = 0;
-
-            return true;
-        }
-
-        return false;*/
     }
 
     public void resetCounter() {

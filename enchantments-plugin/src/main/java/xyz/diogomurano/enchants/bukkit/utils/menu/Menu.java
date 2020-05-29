@@ -75,15 +75,11 @@ public class Menu {
         return slots;
     }
 
-    public Inventory getInventory() {
-        return inventory;
-    }
-
     public ClickItem getItem(int slot) {
         return slots.get(slot);
     }
 
-    public void open(Player p) {
+    public void open(final Player p) {
         p.getOpenInventory();
         if (p.getOpenInventory().getTopInventory().getType() != InventoryType.CHEST || p.getOpenInventory().getTopInventory().getSize() != rows * 9 || p.getOpenInventory().getTopInventory().getHolder() == null || !(p.getOpenInventory().getTopInventory().getHolder() instanceof Holder)) {
             createAndOpenInventory(p);
@@ -100,16 +96,16 @@ public class Menu {
         updateTitle(p);
     }
 
-    public void updateTitle(Player p) {
+    public void updateTitle(final Player p) {
         try {
-            PacketContainer packet = new PacketContainer(PacketType.Play.Server.OPEN_WINDOW);
+            final PacketContainer packet = new PacketContainer(PacketType.Play.Server.OPEN_WINDOW);
             packet.getChatComponents().write(0, WrappedChatComponent.fromText(name));
-            Method getHandle = MinecraftReflection.getCraftPlayerClass().getMethod("getHandle");
-            Object entityPlayer = getHandle.invoke(p);
-            Field activeContainerField = entityPlayer.getClass().getField("activeContainer");
-            Object activeContainer = activeContainerField.get(entityPlayer);
-            Field windowIdField = activeContainer.getClass().getField("windowId");
-            int id = windowIdField.getInt(activeContainer);
+            final Method getHandle = MinecraftReflection.getCraftPlayerClass().getMethod("getHandle");
+            final Object entityPlayer = getHandle.invoke(p);
+            final Field activeContainerField = entityPlayer.getClass().getField("activeContainer");
+            final Object activeContainer = activeContainerField.get(entityPlayer);
+            final Field windowIdField = activeContainer.getClass().getField("windowId");
+            final int id = windowIdField.getInt(activeContainer);
             packet.getStrings().write(0, "minecraft:chest");
             packet.getIntegers().write(0, id);
             packet.getIntegers().write(1, rows * 9);
@@ -120,7 +116,7 @@ public class Menu {
                 i += 1;
             }
             p.updateInventory();
-        } catch (Exception e) {
+        } catch (final Exception e) {
             e.printStackTrace();
         }
     }
@@ -139,6 +135,10 @@ public class Menu {
 
     public void close(Player p) {
         p.closeInventory();
+    }
+
+    public Inventory getInventory() {
+        return inventory;
     }
 
     public interface ClickHandler {

@@ -30,7 +30,7 @@ public class TeamPlayerDao extends Dao<TeamPlayer> {
         Connection connection = databaseService.getConnection();
 
         try (PreparedStatement stmt = connection.prepareStatement(
-                     String.format("INSERT INTO teamplayer VALUES (X'%s', ?, ?, ?)", Util.toSQL(teamPlayer.getUUID()))
+                     String.format("INSERT INTO teamplayer VALUES (X'%s', ?, ?, ?)", Util.toSQL(teamPlayer.getUuid()))
         )) {
             stmt.setString(1, teamPlayer.getTeam() != null ? teamPlayer.getTeam().getTag() : null);
             stmt.setByte(2, (byte) teamPlayer.getRole().ordinal());
@@ -67,7 +67,7 @@ public class TeamPlayerDao extends Dao<TeamPlayer> {
             Connection connection = databaseService.getConnection();
 
             try (PreparedStatement stmt = connection.prepareStatement(
-                         String.format("UPDATE teamplayer SET teamtag = ?, role = ? WHERE uuid = X'%s'", Util.toSQL(teamPlayer.getUUID()))
+                         String.format("UPDATE teamplayer SET teamtag = ?, role = ? WHERE uuid = X'%s'", Util.toSQL(teamPlayer.getUuid()))
             )) {
                 stmt.setString(1, teamPlayer.getTeam() != null ? teamPlayer.getTeam().getTag() : null);
                 stmt.setByte(2, (byte) teamPlayer.getRole().ordinal());

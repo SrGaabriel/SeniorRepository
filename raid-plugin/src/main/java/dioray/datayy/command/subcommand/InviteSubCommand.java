@@ -4,8 +4,6 @@ import dioray.datayy.RaidPlugin;
 import dioray.datayy.model.Role;
 import dioray.datayy.model.TeamPlayer;
 import dioray.datayy.service.InviteService;
-import dioray.datayy.service.MessageService;
-import dioray.datayy.service.TeamPlayerService;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;

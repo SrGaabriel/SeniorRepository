@@ -1,6 +1,8 @@
 package dioray.datayy.listener;
 
-import com.intellectualcrafters.plot.object.*;
+import com.intellectualcrafters.plot.object.Location;
+import com.intellectualcrafters.plot.object.Plot;
+import com.intellectualcrafters.plot.object.PlotArea;
 import dioray.datayy.RaidPlugin;
 import dioray.datayy.database.TeamDao;
 import dioray.datayy.database.TeamPlayerDao;
@@ -20,7 +22,6 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
-import java.util.List;
 import java.util.Set;
 
 public class PlayerListener implements Listener {
@@ -72,7 +73,7 @@ public class PlayerListener implements Listener {
         }
 
         PlotArea plotArea = this.main.getPlotArea();
-        Set<Plot> plots = plotArea.getPlots(teamPlayer.getUUID());
+        Set<Plot> plots = plotArea.getPlots(teamPlayer.getUuid());
         if (plots.size() == 0) return;
 
         Plot plot = plots.iterator().next();
@@ -146,9 +147,7 @@ public class PlayerListener implements Listener {
                 return;
             }
 
-            this.main.getServer().getScheduler().runTask(this.main, () -> {
-                plotWallUpgradeService.openUpgradeGUI(e.getPlayer(), plotWall);
-            });
+            this.main.getServer().getScheduler().runTask(this.main, () -> plotWallUpgradeService.openUpgradeGUI(e.getPlayer(), plotWall));
         });
     }
 

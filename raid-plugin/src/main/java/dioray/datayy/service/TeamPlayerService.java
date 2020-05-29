@@ -1,7 +1,6 @@
 package dioray.datayy.service;
 
 import dioray.datayy.RaidPlugin;
-import dioray.datayy.model.Role;
 import dioray.datayy.model.Team;
 import dioray.datayy.model.TeamPlayer;
 import org.bukkit.entity.Player;
@@ -26,7 +25,7 @@ public class TeamPlayerService extends Service {
 
     public TeamPlayer getTeamPlayerByUUID(UUID uuid) {
         for (TeamPlayer teamPlayer : teamPlayerList) {
-            if (teamPlayer.getUUID().equals(uuid)) {
+            if (teamPlayer.getUuid().equals(uuid)) {
                 return teamPlayer;
             }
         }

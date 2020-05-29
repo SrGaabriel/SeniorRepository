@@ -19,7 +19,7 @@ public class AutoSellTimer extends BukkitRunnable {
     }
 
     @Override
-    public void run() {
+    public final void run() {
         for (Player player : Bukkit.getOnlinePlayers()) {
             ItemStack hand = player.getInventory().getItemInMainHand();
             if (!hand.getType().name().contains("PICKAXE")) continue;

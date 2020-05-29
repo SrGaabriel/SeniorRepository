@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.ThreadLocalRandom;
 
-public class Jesus extends AbstractCustomEnchant {
+public final class Jesus extends AbstractCustomEnchant {
 
     private final CustomEnchantService enchantService;
 
@@ -28,7 +28,7 @@ public class Jesus extends AbstractCustomEnchant {
     }
 
     @Override
-    public void run(Player player, Block block, int level) {
+    public final void run(Player player, Block block, int level) {
         float chance = this.calculateChance(level);
 
         if (ThreadLocalRandom.current().nextFloat() <= chance) {
@@ -83,7 +83,7 @@ public class Jesus extends AbstractCustomEnchant {
     }
 
     @Override
-    public List<String> getLore() {
+    public final List<String> getLore() {
         return Collections.singletonList("§7Cross-shaped break");
     }
 
@@ -122,6 +122,6 @@ public class Jesus extends AbstractCustomEnchant {
     }
 
     private enum Direction {
-        SOUTH, EAST, WEST, NORTH, HIGH;
+        SOUTH, EAST, WEST, NORTH, HIGH
     }
 }

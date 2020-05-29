@@ -45,4 +45,5 @@ public class RaidExpansion extends PlaceholderExpansion {
 
         return "";
     }
+
 }

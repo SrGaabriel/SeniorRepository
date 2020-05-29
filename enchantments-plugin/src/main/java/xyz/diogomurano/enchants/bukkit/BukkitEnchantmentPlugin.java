@@ -1,5 +1,8 @@
 package xyz.diogomurano.enchants.bukkit;
 
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.ChatColor;
 import org.bukkit.plugin.RegisteredServiceProvider;
@@ -11,21 +14,23 @@ import xyz.diogomurano.enchants.bukkit.command.CustomEnchantCommand;
 import xyz.diogomurano.enchants.bukkit.command.SellToggleCommand;
 import xyz.diogomurano.enchants.bukkit.custom.CustomEnchantServiceImpl;
 import xyz.diogomurano.enchants.bukkit.custom.enchants.*;
-import xyz.diogomurano.enchants.bukkit.listener.InventoryListener;
 import xyz.diogomurano.enchants.bukkit.item.Backpack;
 import xyz.diogomurano.enchants.bukkit.listener.GeneralListener;
+import xyz.diogomurano.enchants.bukkit.listener.InventoryListener;
 import xyz.diogomurano.enchants.bukkit.timer.AutoSellTimer;
 import xyz.diogomurano.enchants.bukkit.utils.BlockUtil;
 import xyz.diogomurano.enchants.bukkit.utils.menu.MenuListener;
 import xyz.diogomurano.enchants.custom.CustomEnchantService;
 
+@EqualsAndHashCode(callSuper = true)
+@Data
 public class BukkitEnchantmentPlugin extends JavaPlugin implements EnchantmentPlugin {
 
     private static BukkitEnchantmentPlugin instance;
+    @Getter
     private static EnchantmentSettings settings;
-    
     private CustomEnchantService enchantService;
-    private Economy economy;
+    private net.milkbowl.vault.economy.Economy economy;
 
     @Override
     public void onLoad() {
@@ -40,11 +45,11 @@ public class BukkitEnchantmentPlugin extends JavaPlugin implements EnchantmentPl
 
         if (!hookEconomy()) {
             getServer().getConsoleSender().sendMessage(ChatColor.RED + "No economy plugin found");
-            
+
             getServer().getPluginManager().disablePlugin(this);
             return;
         }
-        
+
         settings = new BukkitEnchantmentSettings(this).with(enchantmentSettings -> {
             enchantmentSettings.createFiles();
             enchantmentSettings.loadFiles();
@@ -61,17 +66,17 @@ public class BukkitEnchantmentPlugin extends JavaPlugin implements EnchantmentPl
         BlockUtil.init();
         Backpack.init();
 
-        new AutoSellTimer(this).runTaskTimer(this, 0, 20);
+        new AutoSellTimer(this).runTaskTimerAsynchronously(this, 0, 20);
 
         getServer().getPluginManager().registerEvents(new InventoryListener(this), this);
 
         getServer().getPluginManager().registerEvents(new MenuListener(), this);
     }
-    
+
     private boolean hookEconomy() {
         RegisteredServiceProvider<Economy> rsp = getServer().getServicesManager().getRegistration(Economy.class);
         if (rsp == null) return false;
-        
+
         return (this.economy = rsp.getProvider()) != null;
     }
 
@@ -93,15 +98,6 @@ public class BukkitEnchantmentPlugin extends JavaPlugin implements EnchantmentPl
     @Override
     public CustomEnchantService getEnchantService() {
         return enchantService;
-    }
-
-    @Override
-    public Economy getEconomy() {
-        return economy;
-    }
-
-    public static EnchantmentSettings getSettings() {
-        return settings;
     }
 
     public static BukkitEnchantmentPlugin getInstance() {

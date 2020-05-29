@@ -2,13 +2,12 @@ package xyz.diogomurano.enchants.bukkit.utils;
 
 import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
 import com.sk89q.worldguard.protection.ApplicableRegionSet;
-import com.sk89q.worldguard.protection.flags.Flag;
 import com.sk89q.worldguard.protection.flags.StateFlag;
 import com.sk89q.worldguard.protection.managers.RegionManager;
 import org.bukkit.block.Block;
 import org.bukkit.inventory.ItemStack;
 
-public class BlockUtil {
+public final class BlockUtil {
 
     private static StateFlag blockBreakFlag;
 

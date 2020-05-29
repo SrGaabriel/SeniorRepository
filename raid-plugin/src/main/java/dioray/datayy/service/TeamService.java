@@ -11,7 +11,6 @@ import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 public class TeamService extends Service {
 
@@ -103,7 +102,7 @@ public class TeamService extends Service {
 
     public Team getRaidingTeam(Plot plot) {
         for (Team team : this.teamList) {
-            if (team.isRaiding() && plot.getId().toCommaSeparatedString().equalsIgnoreCase(team.getSelectedPlot())) {
+            if (team.isRaiding() && plot.getId().toString().equalsIgnoreCase(team.getSelectedPlot())) {
                 return team;
             }
         }

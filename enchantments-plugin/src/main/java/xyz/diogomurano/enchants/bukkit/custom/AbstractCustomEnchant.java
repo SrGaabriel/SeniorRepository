@@ -10,6 +10,8 @@ import dioray.datayy.model.TeamPlayer;
 import dioray.datayy.service.PlotWallService;
 import dioray.datayy.service.TeamPlayerService;
 import dioray.datayy.service.TeamService;
+import lombok.Data;
+import lombok.NonNull;
 import me.clip.ezblocks.EZBlocks;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -30,6 +32,7 @@ import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.ThreadLocalRandom;
 
+@Data
 public abstract class AbstractCustomEnchant implements CustomEnchant {
 
     private final UUID uniqueId;
@@ -42,7 +45,7 @@ public abstract class AbstractCustomEnchant implements CustomEnchant {
     private final TeamService teamService;
     private final TeamPlayerService teamPlayerService;
 
-    public AbstractCustomEnchant(UUID uniqueId, String name) {
+    public AbstractCustomEnchant(@NonNull final UUID uniqueId, final String name) {
         this.uniqueId = uniqueId;
         this.name = name;
 
@@ -59,22 +62,12 @@ public abstract class AbstractCustomEnchant implements CustomEnchant {
     }
 
     @Override
-    public UUID getUniqueId() {
-        return uniqueId;
-    }
-
-    @Override
-    public String getName() {
-        return name;
-    }
-
-    @Override
-    public Integer getMaxLevel() {
+    public final Integer getMaxLevel() {
         return maxLevel;
     }
 
     @Override
-    public int getEnchantmentLevel(ItemStack stack) {
+    public int getEnchantmentLevel(final ItemStack stack) {
         if (stack.hasItemMeta() && stack.getItemMeta().hasLore()) {
             return stack.getItemMeta().getLore().stream()
                     .filter(line -> line.startsWith("§7" + this.name))
@@ -87,14 +80,14 @@ public abstract class AbstractCustomEnchant implements CustomEnchant {
     }
 
     @Override
-    public boolean hasEnchantment(ItemStack stack) {
+    public boolean hasEnchantment(final ItemStack stack) {
         return stack.hasItemMeta() && stack.getItemMeta().hasLore() && stack.getItemMeta().getLore().stream()
                 .anyMatch(line -> line.startsWith("§7" + this.name));
     }
 
     @Override
-    public void addEnchantment(ItemStack stack, Integer level) {
-        List<String> lore = (stack.hasItemMeta() && stack.getItemMeta().hasLore() ? stack.getItemMeta().getLore() : new ArrayList<>());
+    public void addEnchantment(final ItemStack stack, final Integer level) {
+        final List<String> lore = (stack.hasItemMeta() && stack.getItemMeta().hasLore() ? stack.getItemMeta().getLore() : new ArrayList<>());
         lore.add("§7" + name + " " + level);
 
         ItemMeta meta = stack.getItemMeta();
@@ -108,13 +101,13 @@ public abstract class AbstractCustomEnchant implements CustomEnchant {
     }
 
     @Override
-    public void maxEnchantment(ItemStack stack) {
+    public void maxEnchantment(final ItemStack stack) {
         removeEnchantment(stack);
         addEnchantment(stack, this.maxLevel);
     }
 
     @Override
-    public void removeEnchantment(ItemStack stack) {
+    public void removeEnchantment(final ItemStack stack) {
         if (stack.hasItemMeta() && stack.getItemMeta().hasLore()) {
             ItemMeta itemMeta = stack.getItemMeta();
 
@@ -128,7 +121,7 @@ public abstract class AbstractCustomEnchant implements CustomEnchant {
     }
 
     @Override
-    public int upgradeEnchantment(ItemStack stack, int amount) {
+    public int upgradeEnchantment(final ItemStack stack, final int amount) {
         int level = getEnchantmentLevel(stack);
 
         removeEnchantment(stack);
@@ -137,11 +130,11 @@ public abstract class AbstractCustomEnchant implements CustomEnchant {
         return level + amount;
     }
 
-    public TeamPlayer getTeamPlayer(Player player) {
+    public TeamPlayer getTeamPlayer(final Player player) {
         return teamPlayerService.getTeamPlayerByPlayer(player);
     }
 
-    public boolean handleDestroy(Player player, Location location, int level) {
+    public boolean handleDestroy(final Player player, final Location location, final int level) {
         if (location.getBlock().getType() != Material.OBSIDIAN) return false;
 
         PlotWall plotWall = plotWallService.getPlotWall(location);
@@ -207,11 +200,6 @@ public abstract class AbstractCustomEnchant implements CustomEnchant {
     @Override
     public int getCountToUpgrade() {
         return this.blockSet / this.maxLevel;
-    }
-
-    @Override
-    public int getBlockSet() {
-        return blockSet;
     }
 
     @Override

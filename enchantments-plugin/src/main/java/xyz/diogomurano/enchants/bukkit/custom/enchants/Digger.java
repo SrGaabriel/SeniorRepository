@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.ThreadLocalRandom;
 
-public class Digger extends AbstractCustomEnchant {
+public final class Digger extends AbstractCustomEnchant {
 
     private final CustomEnchantService enchantService;
 

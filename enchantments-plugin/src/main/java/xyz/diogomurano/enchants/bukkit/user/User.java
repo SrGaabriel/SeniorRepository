@@ -1,5 +1,6 @@
 package xyz.diogomurano.enchants.bukkit.user;
 
+import lombok.Data;
 import me.clip.autosell.AutoSell;
 import me.clip.autosell.AutoSellAPI;
 import me.clip.autosell.EcoUtil;
@@ -23,6 +24,7 @@ import xyz.diogomurano.enchants.custom.CustomEnchant;
 
 import java.util.*;
 
+@Data
 public class User {
 
     private static final Map<UUID, Counter> selectedCounterMap = new HashMap<>();
@@ -32,15 +34,15 @@ public class User {
         User.selectedCounterMap.put(player.getUniqueId(), selected);
     }
 
-    public static Counter getSelected(Player player) {
+    public static Counter getSelected(final Player player) {
         return User.selectedCounterMap.get(player.getUniqueId());
     }
 
-    public static void removeSelected(Player player) {
+    public static void removeSelected(final Player player) {
         User.selectedCounterMap.remove(player.getUniqueId());
     }
 
-    public static void addItem(Player player, ItemStack itemStack) {
+    public static void addItem(final Player player, final ItemStack itemStack) {
         Map<Integer, ItemStack> itemsBack = player.getInventory().addItem(itemStack);
 
         for (ItemStack item : itemsBack.values()) {
@@ -48,7 +50,7 @@ public class User {
         }
     }
 
-    public static ItemStack handleCounter(Player player, ItemStack hand, boolean update) {
+    public static ItemStack handleCounter(final Player player, ItemStack hand, final boolean update) {
         Counter selected = User.getSelected(player);
         if (selected == null) return hand;
 
@@ -65,7 +67,7 @@ public class User {
         }
     }
 
-    public static ItemStack handleEnchantCounter(Player player, Counter selected, ItemStack hand, boolean update, int amount) {
+    public static ItemStack handleEnchantCounter(final Player player, final Counter selected, ItemStack hand, final boolean update, final int amount) {
         ItemNBT.Result result = ItemNBT.addCount(hand, selected, amount);
 
         hand = result.itemStack;
@@ -93,7 +95,7 @@ public class User {
         return hand;
     }
 
-    public static boolean handleBackpackCounter(Player player, int amount) {
+    public static boolean handleBackpackCounter(final Player player, final int amount) {
         PlayerInventory inventory = player.getInventory();
         for (int i = 0; i < inventory.getSize(); i++) {
             ItemStack itemStack = inventory.getItem(i);
@@ -127,8 +129,8 @@ public class User {
         return false;
     }
 
-    private static void addBackpackItem(Player player, ItemStack itemStack) {
-        PlayerInventory inventory = player.getInventory();
+    private static void addBackpackItem(final Player player, final ItemStack itemStack) {
+        final PlayerInventory inventory = player.getInventory();
         for (int i = 0; i < inventory.getSize(); i++) {
             ItemStack content = inventory.getItem(i);
 
@@ -227,9 +229,9 @@ public class User {
             multiplier += globalMultiplier.getMultiplier();
         }
 
-        float[] backpackData = User.sellBackpack(player);
-        float backpackTotalCoins = backpackData[0];
-        int backpackTotalItems = (int) backpackData[1];
+        final float[] backpackData = User.sellBackpack(player);
+        final float backpackTotalCoins = backpackData[0];
+        final int backpackTotalItems = (int) backpackData[1];
 
         totalCoins += backpackTotalCoins;
         totalItems += backpackTotalItems;

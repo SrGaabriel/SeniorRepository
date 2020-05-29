@@ -7,7 +7,6 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
-import java.util.concurrent.ThreadLocalRandom;
 
 public class Team {
 
@@ -21,7 +20,7 @@ public class Team {
     private long value;
     private int valueCounter;
 
-    public Team(String tag, Plot plot, int corecount, long value) {
+    public Team(String tag, com.intellectualcrafters.plot.object.Plot plot, int corecount, long value) {
         this.tag = tag;
         this.playerSet = new HashSet<>();
         this.remainingTime = 0;
@@ -47,8 +46,8 @@ public class Team {
         return selectedPlot;
     }
 
-    public boolean isRaiding(Plot plot) {
-        return this.raiding && plot.getId().toCommaSeparatedString().equalsIgnoreCase(this.getSelectedPlot());
+    public boolean isRaiding(com.intellectualcrafters.plot.object.OfflinePlotPlayer plot) {
+        return this.raiding && plot.getUUID().toString().equalsIgnoreCase(this.getSelectedPlot());
     }
 
     public void setRemainingTime(long remainingTime) {

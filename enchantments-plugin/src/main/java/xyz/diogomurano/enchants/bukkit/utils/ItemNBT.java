@@ -11,7 +11,6 @@ import xyz.diogomurano.enchants.custom.CustomEnchant;
 
 public class ItemNBT {
 
-    // region Counter NBT
     public static boolean hasCounters(ItemStack itemStack) {
         net.minecraft.server.v1_12_R1.ItemStack nmsItemStack = CraftItemStack.asNMSCopy(itemStack);
         NBTTagCompound nbtTag = nmsItemStack.getTag() != null ? nmsItemStack.getTag() : new NBTTagCompound();

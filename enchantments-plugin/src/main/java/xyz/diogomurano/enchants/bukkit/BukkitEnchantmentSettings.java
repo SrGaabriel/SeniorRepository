@@ -1,9 +1,8 @@
 package xyz.diogomurano.enchants.bukkit;
 
-import org.bukkit.Material;
+import lombok.Getter;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.inventory.ItemStack;
 import xyz.diogomurano.enchants.EnchantmentSettings;
 
 import java.io.File;
@@ -11,7 +10,8 @@ import java.util.function.Consumer;
 
 public class BukkitEnchantmentSettings implements EnchantmentSettings {
 
-    private BukkitEnchantmentPlugin plugin;
+    private final BukkitEnchantmentPlugin plugin;
+    @Getter
     private FileConfiguration enchantsConfiguration;
 
     public BukkitEnchantmentSettings(BukkitEnchantmentPlugin plugin) {
@@ -19,7 +19,7 @@ public class BukkitEnchantmentSettings implements EnchantmentSettings {
     }
 
     @Override
-    public void createFiles() {
+    public final void createFiles() {
         plugin.saveResource("enchants.yml", false);
     }
 
@@ -29,12 +29,7 @@ public class BukkitEnchantmentSettings implements EnchantmentSettings {
     }
 
     @Override
-    public FileConfiguration getEnchantsConfiguration() {
-        return enchantsConfiguration;
-    }
-
-    @Override
-    public EnchantmentSettings with(Consumer<EnchantmentSettings> consumer) {
+    public final EnchantmentSettings with(Consumer<EnchantmentSettings> consumer) {
         consumer.accept(this);
         return this;
     }
