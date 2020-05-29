@@ -5,13 +5,12 @@ import com.intellectualcrafters.plot.object.Plot;
 import dioray.datayy.prototype.Team;
 import dioray.datayy.prototype.player.TeamPlayer;
 import dioray.datayy.prototype.wall.PlotWall;
-import dioray.datayy.provider.message.MessageProvider;
+import dioray.datayy.provider.message.ConfigurationProvider;
 import dioray.datayy.provider.wall.WallProvider;
 import dioray.datayy.provider.world.WorldProvider;
 import dioray.datayy.repository.raid.RaidRepository;
 import dioray.datayy.repository.team.TeamRepository;
 import org.bukkit.Location;
-import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Player;
@@ -28,7 +27,7 @@ public class RaidListener  implements Listener {
     private final RaidRepository raidRepository = RaidRepository.getInstance();
     private final WorldProvider worldProvider = WorldProvider.getInstance();
     private final WallProvider wallProvider = WallProvider.getInstance();
-    private final MessageProvider messageProvider = MessageProvider.getInstance();
+    private final ConfigurationProvider configurationProvider = ConfigurationProvider.getInstance();
 
     private final PlotAPI plotAPI = new PlotAPI();
 
@@ -99,7 +98,7 @@ public class RaidListener  implements Listener {
     }
 
     public int getLife(int level) {
-        return level * messageProvider.get(Integer.class, "plot-wall-life-grow-amount");
+        return level * configurationProvider.get(Integer.class, "plot-wall-life-grow-amount");
     }
 
 }

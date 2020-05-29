@@ -27,7 +27,7 @@ public class Team {
 
     private boolean raiding;
 
-    private int core, counter;
+    private int health, counter;
 
     private long value, remainingTime = 0;
 

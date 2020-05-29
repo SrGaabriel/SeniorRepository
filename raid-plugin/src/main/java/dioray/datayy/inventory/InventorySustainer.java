@@ -1,6 +1,6 @@
 package dioray.datayy.inventory;
 
-import com.altverse.sdk.inventory.item.ItemBuilder;
+import dioray.datayy.inventory.item.ItemBuilder;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.event.EventHandler;
@@ -117,6 +117,10 @@ public class InventorySustainer {
 
     public void setItem(int slot, ItemBuilder builder, ClickService service) {
         setItem(slot, builder.build(), service);
+    }
+
+    public void setItem(int slot, ItemBuilder itemBuilder) {
+        setItem(slot, itemBuilder, null);
     }
 
     public void setItem(int slot, ItemStack itemStack, ClickService service) {

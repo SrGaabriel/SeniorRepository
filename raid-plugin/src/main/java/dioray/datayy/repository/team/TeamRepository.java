@@ -44,7 +44,7 @@ public class TeamRepository implements Repository<String, Team> {
     public TeamPlayer get(Player player) {
         for(Team team : teamMap.values()) {
             for(TeamPlayer teamPlayer : team.getPlayers()) {
-                if(teamPlayer.getUuid().compareTo(player.getUniqueId()) == 0) return teamPlayer;
+                if(teamPlayer.getUUID().compareTo(player.getUniqueId()) == 0) return teamPlayer;
             }
         } return null;
     }
