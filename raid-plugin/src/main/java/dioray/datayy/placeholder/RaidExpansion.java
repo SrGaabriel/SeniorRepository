@@ -1,19 +1,14 @@
 package dioray.datayy.placeholder;
 
 import dioray.datayy.RaidPlugin;
-import dioray.datayy.model.Team;
-import dioray.datayy.model.TeamPlayer;
-import dioray.datayy.service.TeamPlayerService;
+import dioray.datayy.prototype.player.TeamPlayer;
+import dioray.datayy.repository.team.TeamRepository;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import org.bukkit.entity.Player;
 
 public class RaidExpansion extends PlaceholderExpansion {
 
-    private final TeamPlayerService teamPlayerService;
-
-    public RaidExpansion(RaidPlugin main) {
-        this.teamPlayerService = main.getService(TeamPlayerService.class);
-    }
+    private final TeamRepository teamRepository = TeamRepository.getInstance();
 
     @Override
     public String getIdentifier() {
@@ -22,28 +17,21 @@ public class RaidExpansion extends PlaceholderExpansion {
 
     @Override
     public String getAuthor() {
-        return "Braayy";
+        return "Wizard";
     }
 
     @Override
     public String getVersion() {
-        return "1.0";
+        return "2.0";
     }
 
     @Override
     public String onPlaceholderRequest(Player player, String name) {
-        if (player == null) return "";
+        if(!name.equalsIgnoreCase("team-value")) return " ";
 
-        if (name.equalsIgnoreCase("value")) {
-            TeamPlayer teamPlayer = this.teamPlayerService.getTeamPlayerByPlayer(player);
-            Team team = teamPlayer.getTeam();
+        TeamPlayer teamPlayer = teamRepository.get(player); if(teamPlayer == null) return "N/A";
 
-            if (team == null) return "N/A";
-
-            return String.valueOf(team.getValue());
-        }
-
-        return "";
+        return String.valueOf(teamPlayer.getTeam().getValue());
     }
 
 }

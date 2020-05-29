@@ -1,8 +1,7 @@
 package dioray.datayy.command.subcommand;
 
 import dioray.datayy.RaidPlugin;
-import dioray.datayy.model.Team;
-import dioray.datayy.model.TeamPlayer;
+import dioray.datayy.prototype.player.TeamPlayer;
 import dioray.datayy.util.Util;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;

@@ -4,10 +4,11 @@ import com.intellectualcrafters.plot.object.Location;
 import com.intellectualcrafters.plot.object.Plot;
 import com.intellectualcrafters.plot.object.PlotArea;
 import dioray.datayy.RaidPlugin;
-import dioray.datayy.database.TeamDao;
-import dioray.datayy.database.TeamPlayerDao;
-import dioray.datayy.item.ValueVoucher;
-import dioray.datayy.model.*;
+import dioray.datayy.provider.VoucherProvider;
+import dioray.datayy.prototype.player.TeamPlayer;
+import dioray.datayy.prototype.player.type.Role;
+import dioray.datayy.prototype.wall.PlotWall;
+import dioray.datayy.prototype.wall.position.BlockPosition;
 import dioray.datayy.service.*;
 import dioray.datayy.util.Util;
 import org.bukkit.entity.EntityType;
@@ -61,6 +62,8 @@ public class PlayerListener implements Listener {
         });
     }
 
+
+
     @EventHandler
     public void onPlayerQuit(PlayerQuitEvent e) {
         TeamPlayer teamPlayer = teamPlayerService.getTeamPlayerByPlayer(e.getPlayer());
@@ -96,8 +99,8 @@ public class PlayerListener implements Listener {
 
     @EventHandler
     public void onPlayerInteract(PlayerInteractEvent e) {
-        if ((e.getAction() == Action.RIGHT_CLICK_AIR || e.getAction() == Action.RIGHT_CLICK_BLOCK) && e.hasItem() && ValueVoucher.isVoucher(e.getItem())) {
-            int amount = ValueVoucher.getAmount(e.getItem());
+        if ((e.getAction() == Action.RIGHT_CLICK_AIR || e.getAction() == Action.RIGHT_CLICK_BLOCK) && e.hasItem() && VoucherProvider.isVoucher(e.getItem())) {
+            int amount = VoucherProvider.getAmount(e.getItem());
             if (amount > 0) {
                 TeamPlayer teamPlayer = teamPlayerService.getTeamPlayerByPlayer(e.getPlayer());
                 Team playerTeam = teamPlayer.getTeam();

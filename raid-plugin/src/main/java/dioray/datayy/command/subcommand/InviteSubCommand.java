@@ -1,8 +1,8 @@
 package dioray.datayy.command.subcommand;
 
 import dioray.datayy.RaidPlugin;
-import dioray.datayy.model.Role;
-import dioray.datayy.model.TeamPlayer;
+import dioray.datayy.prototype.player.type.Role;
+import dioray.datayy.prototype.player.TeamPlayer;
 import dioray.datayy.service.InviteService;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.HoverEvent;
