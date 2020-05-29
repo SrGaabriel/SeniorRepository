@@ -45,7 +45,7 @@ public class PlotWallService extends Service {
     public void fetchFromDatabase(Plot plot, Consumer<List<PlotWall>> consumer) {
         plotWallDao.fetchAll(plot, (plotWallList) -> {
             if (plotWallList.size() > 0) {
-                this.plotWallMap.put(plot.getId().toCommaSeparatedString(), plotWallList);
+                this.plotWallMap.put(plot.getId().toString(), plotWallList);
 
                 consumer.accept(plotWallList);
             }
@@ -56,14 +56,14 @@ public class PlotWallService extends Service {
         float total = plotWallDao.getCount(plot);
         if (total == 0) return 1;
 
-        List<PlotWall> plotWallList = this.plotWallMap.get(plot.getId().toCommaSeparatedString());
+        List<PlotWall> plotWallList = this.plotWallMap.get(plot.getId().toString());
         if (plotWallList == null) return 1;
 
         return plotWallList.stream().filter(PlotWall::isBroken).count() / total;
     }
 
     public List<PlotWall> clear(Plot plot) {
-        return this.plotWallMap.remove(plot.getId().toCommaSeparatedString());
+        return this.plotWallMap.remove(plot.getId().toString());
     }
 
     @Override
@@ -101,7 +101,7 @@ public class PlotWallService extends Service {
     }
 
     public PlotWall getPlotWall(Plot plot, Location location) {
-        List<PlotWall> plotWallList = this.plotWallMap.get(plot.getId().toCommaSeparatedString());
+        List<PlotWall> plotWallList = this.plotWallMap.get(plot.getId().toString());
         if (plotWallList != null) {
             for (PlotWall plotWall : plotWallList) {
                 if (plotWall.getPosition().equalsLocation(location)) {

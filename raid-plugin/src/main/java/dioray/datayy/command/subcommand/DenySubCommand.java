@@ -6,7 +6,7 @@ import dioray.datayy.model.TeamPlayer;
 import dioray.datayy.service.InviteService;
 import org.bukkit.entity.Player;
 
-public class DenySubCommand extends SubCommand {
+public final class DenySubCommand extends SubCommand {
 
     private final InviteService inviteService;
 

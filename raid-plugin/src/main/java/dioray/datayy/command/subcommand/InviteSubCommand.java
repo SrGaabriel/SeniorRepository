@@ -10,7 +10,7 @@ import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
-public class InviteSubCommand extends SubCommand {
+public final class InviteSubCommand extends SubCommand {
 
     private final InviteService inviteService;
 

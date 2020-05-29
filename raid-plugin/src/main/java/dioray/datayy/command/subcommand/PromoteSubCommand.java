@@ -8,7 +8,7 @@ import dioray.datayy.model.TeamPlayer;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
-public class PromoteSubCommand extends SubCommand {
+public final class PromoteSubCommand extends SubCommand {
 
     private final TeamPlayerDao teamPlayerDao;
 

@@ -8,7 +8,7 @@ import dioray.datayy.model.TeamPlayer;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
-public class KickSubCommand extends SubCommand {
+public final class KickSubCommand extends SubCommand {
 
     private final TeamPlayerDao teamPlayerDao;
 

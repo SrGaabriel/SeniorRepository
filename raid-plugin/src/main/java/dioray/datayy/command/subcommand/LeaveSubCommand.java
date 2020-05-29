@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class LeaveSubCommand extends SubCommand {
+public final class LeaveSubCommand extends SubCommand {
 
     private final TeamPlayerDao teamPlayerDao;
     private final PlotWallDao plotWallDao;

@@ -5,6 +5,7 @@ import org.bukkit.entity.Player;
 import xyz.diogomurano.enchants.bukkit.custom.AbstractCustomEnchant;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
@@ -19,6 +20,6 @@ public final class AutoSell extends AbstractCustomEnchant {
 
     @Override
     public final List<String> getLore() {
-        return Arrays.asList("§7Automatically sell everything you mine");
+        return Collections.singletonList("§7Automatically sell everything you mine");
     }
 }

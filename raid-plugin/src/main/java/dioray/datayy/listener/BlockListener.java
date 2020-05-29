@@ -1,7 +1,11 @@
 package dioray.datayy.listener;
 
+import com.intellectualcrafters.plot.PS;
 import com.intellectualcrafters.plot.object.Location;
+import com.intellectualcrafters.plot.object.OfflinePlotPlayer;
 import com.intellectualcrafters.plot.object.Plot;
+import com.plotsquared.bukkit.util.OfflinePlayerUtil;
+import com.plotsquared.bukkit.uuid.OfflineUUIDWrapper;
 import com.sk89q.worldedit.bukkit.BukkitPlayer;
 import com.sk89q.worldedit.bukkit.WorldEditPlugin;
 import dioray.datayy.RaidPlugin;
@@ -12,6 +16,7 @@ import dioray.datayy.model.PlotWall;
 import dioray.datayy.model.Team;
 import dioray.datayy.model.TeamPlayer;
 import dioray.datayy.service.*;
+import dioray.datayy.util.BlockUtil;
 import dioray.datayy.util.Util;
 import org.bukkit.Material;
 import org.bukkit.block.BlockFace;
@@ -22,7 +27,6 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockFromToEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.inventory.ItemStack;
-import xyz.diogomurano.enchants.bukkit.utils.BlockUtil;
 
 public class BlockListener implements Listener {
 
@@ -140,9 +144,7 @@ public class BlockListener implements Listener {
 
                     event.setCancelled(false);
 
-                    this.main.getServer().getScheduler().runTaskLater(this.main, () -> {
-                        event.getBlock().setType(Material.DRAGON_EGG);
-                    }, 20 * 10);
+                    this.main.getServer().getScheduler().runTaskLater(this.main, () -> event.getBlock().setType(Material.DRAGON_EGG), 20 * 10);
 
                     return;
                 }

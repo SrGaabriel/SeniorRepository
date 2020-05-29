@@ -13,7 +13,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 import xyz.diogomurano.enchants.bukkit.BukkitEnchantmentPlugin;
 import xyz.diogomurano.enchants.bukkit.custom.AbstractCustomEnchant;
 import xyz.diogomurano.enchants.bukkit.user.User;
-import xyz.diogomurano.enchants.bukkit.utils.BlockUtil;
+import dioray.datayy.util.BlockUtil;
 import xyz.diogomurano.enchants.custom.CustomEnchant;
 import xyz.diogomurano.enchants.custom.CustomEnchantService;
 

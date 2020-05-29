@@ -96,7 +96,7 @@ public class Menu {
         updateTitle(p);
     }
 
-    public void updateTitle(final Player p) {
+    public final void updateTitle(final Player p) {
         try {
             final PacketContainer packet = new PacketContainer(PacketType.Play.Server.OPEN_WINDOW);
             packet.getChatComponents().write(0, WrappedChatComponent.fromText(name));

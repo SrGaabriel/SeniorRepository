@@ -6,7 +6,7 @@ import dioray.datayy.service.SearchCooldownService;
 import dioray.datayy.service.TeamService;
 import org.bukkit.entity.Player;
 
-public class CooldownSubCommand extends SubCommand {
+public final class CooldownSubCommand extends SubCommand {
 
     private final TeamService teamService;
     private final SearchCooldownService searchCooldownService;

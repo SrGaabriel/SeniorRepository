@@ -31,7 +31,7 @@ public class ValueCommand implements CommandExecutor {
     }
 
     @Override
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+    public boolean onCommand(final CommandSender sender, final Command command, final String label, final String[] args) {
         if (args.length < 1) {
             if (!(sender instanceof Player)) {
                 messageService.sendMessage(sender, "command.only-player");
@@ -40,10 +40,10 @@ public class ValueCommand implements CommandExecutor {
                 return true;
             }
 
-            Player player = (Player) sender;
+            final Player player = (Player) sender;
 
-            TeamPlayer teamPlayer = teamPlayerService.getTeamPlayerByPlayer(player);
-            Team team = teamPlayer.getTeam();
+            final TeamPlayer teamPlayer = teamPlayerService.getTeamPlayerByPlayer(player);
+            final Team team = teamPlayer.getTeam();
 
             if (team == null) {
                 messageService.sendMessage(player, "command.value.no-team");

@@ -136,7 +136,7 @@ public class PlotWallDao extends Dao<PlotWall> {
                     consumer.accept(valueBlockList);
                 }
             } catch (Exception ex) {
-                this.main.getLogger().log(Level.SEVERE, "Something went wrong when fetching value blocks of " + plot.getId().toCommaSeparatedString(), ex);
+                this.main.getLogger().log(Level.SEVERE, "Something went wrong when fetching value blocks of " + plot.getId().toString(), ex);
             }
         });
     }
@@ -156,7 +156,7 @@ public class PlotWallDao extends Dao<PlotWall> {
                 }
             }
         } catch (Exception ex) {
-            this.main.getLogger().log(Level.SEVERE, "Something went wrong when fetching value blocks of " + plot.getId().toCommaSeparatedString(), ex);
+            this.main.getLogger().log(Level.SEVERE, "Something went wrong when fetching value blocks of " + plot.getId().toString(), ex);
         }
 
         return 0;

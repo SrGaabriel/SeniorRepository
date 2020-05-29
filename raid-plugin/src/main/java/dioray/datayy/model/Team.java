@@ -46,8 +46,9 @@ public class Team {
         return selectedPlot;
     }
 
-    public boolean isRaiding(com.intellectualcrafters.plot.object.OfflinePlotPlayer plot) {
-        return this.raiding && plot.getUUID().toString().equalsIgnoreCase(this.getSelectedPlot());
+    @SuppressWarnings("deprecation")
+    public boolean isRaiding(com.intellectualcrafters.plot.object.Plot plot) {
+        return this.raiding && plot.owner.toString().equalsIgnoreCase(this.getSelectedPlot());
     }
 
     public void setRemainingTime(long remainingTime) {
