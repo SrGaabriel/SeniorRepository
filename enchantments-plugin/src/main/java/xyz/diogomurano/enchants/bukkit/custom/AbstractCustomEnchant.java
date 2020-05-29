@@ -5,6 +5,7 @@ import com.asylumdevs.mines.mine.Mine;
 import dioray.datayy.prototype.Team;
 import dioray.datayy.prototype.player.TeamPlayer;
 import dioray.datayy.prototype.wall.PlotWall;
+import dioray.datayy.provider.wall.WallProvider;
 import dioray.datayy.repository.team.TeamRepository;
 import lombok.Data;
 import lombok.NonNull;
@@ -42,6 +43,7 @@ public abstract class AbstractCustomEnchant implements CustomEnchant {
     private float chance;
 
     private final TeamRepository teamService = TeamRepository.getInstance();
+    private final WallProvider wallProvider = WallProvider.getInstance();
 
     public AbstractCustomEnchant(@NonNull final UUID uniqueId, final String name) {
         this.uniqueId = uniqueId;
@@ -165,13 +167,14 @@ public abstract class AbstractCustomEnchant implements CustomEnchant {
     public boolean handleDestroy(final Player player, final Location location, final int level) {
         if (location.getBlock().getType() != Material.OBSIDIAN) return false;
 
-        PlotWall plotWall = plotWallService.getPlotWall(location);
+        PlotWall plotWall = teamService.get(location);
         if (plotWall == null) return false;
 
         Team plotTeam = teamService.get(plotWall.getPlot());
         if (plotTeam == null) return false;
 
-        return plotWallService.handlePlotWallBreak(plotTeam, player, plotWall, 2);
+        wallProvider.hasDamaged(player, location.getBlock(), 2);
+        return true;
     }
 
     public FileConfiguration getConfiguration() {

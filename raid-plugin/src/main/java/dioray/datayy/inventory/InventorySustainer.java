@@ -1,6 +1,6 @@
 package dioray.datayy.inventory;
 
-import com.altverse.sdk.inventory.item.ItemBuilder;
+import dioray.datayy.inventory.item.ItemBuilder;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.event.EventHandler;

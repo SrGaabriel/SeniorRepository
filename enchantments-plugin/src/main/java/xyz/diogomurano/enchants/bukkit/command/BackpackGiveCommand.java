@@ -1,5 +1,6 @@
 package xyz.diogomurano.enchants.bukkit.command;
 
+import me.saiintbrisson.commands.LocalCommand;
 import org.apache.commons.lang.math.NumberUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
