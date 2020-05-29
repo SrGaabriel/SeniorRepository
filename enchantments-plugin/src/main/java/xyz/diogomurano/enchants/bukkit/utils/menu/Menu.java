@@ -25,12 +25,12 @@ public class Menu {
     private final Inventory inventory;
     private final CloseHandler closeHandler;
 
-    public Menu(String name, int rows) {
+    public Menu(final String name, final int rows) {
         this(name, rows, () -> {
         });
     }
 
-    public Menu(String name, int rows, CloseHandler closeHandler) {
+    public Menu(final String name, final int rows, final CloseHandler closeHandler) {
         this.name = name;
         this.rows = rows;
         this.slots = new HashMap<>();
@@ -38,11 +38,11 @@ public class Menu {
         this.closeHandler = closeHandler;
     }
 
-    public void setItem(int slot, ItemStack item) {
+    public void setItem(final int slot, final ItemStack item) {
         setItem(slot, new ClickItem(item));
     }
 
-    public void setItem(int slot, ItemStack item, ClickHandler handler) {
+    public void setItem(final int slot, final ItemStack item, final ClickHandler handler) {
         setItem(slot, new ClickItem(item, handler));
     }
 

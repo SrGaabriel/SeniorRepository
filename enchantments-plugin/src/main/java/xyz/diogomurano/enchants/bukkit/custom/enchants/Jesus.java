@@ -28,7 +28,7 @@ public final class Jesus extends AbstractCustomEnchant {
     }
 
     @Override
-    public final void run(Player player, Block block, int level) {
+    public final void run(final Player player, final Block block, final int level) {
         float chance = this.calculateChance(level);
 
         if (ThreadLocalRandom.current().nextFloat() <= chance) {
@@ -52,7 +52,7 @@ public final class Jesus extends AbstractCustomEnchant {
         }
     }
 
-    private List<Block> getCrossBlocks(Direction dir, Location location) {
+    private List<Block> getCrossBlocks(final Direction dir, final Location location) {
         if (dir == Direction.WEST || dir == Direction.EAST) {
             return Arrays.asList(
                     location.clone().add( 1, 0, 0).getBlock(),
@@ -87,7 +87,7 @@ public final class Jesus extends AbstractCustomEnchant {
         return Collections.singletonList("§7Cross-shaped break");
     }
 
-    private Direction getDirection(Player player) {
+    private Direction getDirection(final Player player) {
         if (player.getLocation().getPitch() == 90) {
             return Direction.HIGH;
         }

@@ -25,7 +25,7 @@ public final class Meteor extends AbstractCustomEnchant {
 
     @Override
     public final void run(Player player, Block block, int level) {
-        float chance = this.calculateChance(level);
+        final float chance = this.calculateChance(level);
 
         if (ThreadLocalRandom.current().nextFloat() <= chance) {
             createCylinder(block, player, level);

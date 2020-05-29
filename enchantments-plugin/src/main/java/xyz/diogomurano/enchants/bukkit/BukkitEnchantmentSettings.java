@@ -24,7 +24,7 @@ public class BukkitEnchantmentSettings implements EnchantmentSettings {
     }
 
     @Override
-    public void loadFiles() {
+    public final void loadFiles() {
         this.enchantsConfiguration = YamlConfiguration.loadConfiguration(new File(plugin.getDataFolder(), "enchants.yml"));
     }
 

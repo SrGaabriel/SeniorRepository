@@ -1,5 +1,6 @@
 package xyz.diogomurano.enchants.bukkit.listener;
 
+import dioray.datayy.util.BlockUtil;
 import me.clip.autosell.events.SellAllEvent;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -22,7 +23,6 @@ import xyz.diogomurano.enchants.EnchantmentPlugin;
 import xyz.diogomurano.enchants.bukkit.inventory.BackpackUpgradeInventory;
 import xyz.diogomurano.enchants.bukkit.inventory.PickaxeInventory;
 import xyz.diogomurano.enchants.bukkit.user.User;
-import dioray.datayy.util.BlockUtil;
 import xyz.diogomurano.enchants.custom.CustomEnchant;
 
 import java.util.Random;

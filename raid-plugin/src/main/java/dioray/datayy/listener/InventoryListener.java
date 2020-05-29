@@ -16,18 +16,14 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 
-public class InventoryListener implements Listener {
-
-    private final RaidPlugin main;
+public final class InventoryListener implements Listener {
 
     private final MessageService messageService;
     private final TeamPlayerService teamPlayerService;
     private final TeamDao teamDao;
     private final PlotWallDao plotWallDao;
 
-    public InventoryListener(RaidPlugin main) {
-        this.main = main;
-
+    public InventoryListener(final RaidPlugin main) {
         this.messageService = main.getService(MessageService.class);
         this.teamPlayerService = main.getService(TeamPlayerService.class);
         this.teamDao = main.getTeamDao();
@@ -35,30 +31,29 @@ public class InventoryListener implements Listener {
     }
 
     @EventHandler
-    public void onInventoryClick(InventoryClickEvent e) {
+    public final void onInventoryClick(final InventoryClickEvent e) {
         if (e.getCurrentItem() == null) return;
         if (e.getClickedInventory() == null) return;
 
         if (e.getClickedInventory().getHolder() instanceof UpgradeInventoryHolder) {
             e.setCancelled(true);
 
-            PlotWall plotWall = ((UpgradeInventoryHolder) e.getClickedInventory().getHolder()).getSelectedPlotWall();
+            final PlotWall plotWall = ((UpgradeInventoryHolder) e.getClickedInventory().getHolder()).getSelectedPlotWall();
 
             if (e.getCurrentItem().getType() == Material.CONCRETE) {
                 if (e.getCurrentItem().getDurability() == 13) {
-                    TeamPlayer teamPlayer = teamPlayerService.getTeamPlayerByPlayer((Player) e.getWhoClicked());
-                    Team team = teamPlayer.getTeam();
+                    final TeamPlayer teamPlayer = teamPlayerService.getTeamPlayerByPlayer((Player) e.getWhoClicked());
+                    final Team team = teamPlayer.getTeam();
                     if (team == null) {
                         e.getWhoClicked().closeInventory();
 
                         return;
                     }
 
-                    int price = RaidPlugin.getPlotWallPrice(plotWall.getLevel() + 1);
+                    final int price = RaidPlugin.getPlotWallPrice(plotWall.getLevel() + 1);
                     if (team.getValue() < price) {
                         messageService.sendMessage(e.getWhoClicked(), "plotwall.not-enough", "price", price);
                         e.getWhoClicked().closeInventory();
-
                         return;
                     }
 

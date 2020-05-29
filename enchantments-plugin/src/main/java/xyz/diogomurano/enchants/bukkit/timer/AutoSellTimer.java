@@ -10,7 +10,7 @@ import xyz.diogomurano.enchants.custom.CustomEnchant;
 
 public class AutoSellTimer extends BukkitRunnable {
 
-    private byte minuteCounter = 0;
+    private long mills = System.currentTimeMillis();
 
     private final CustomEnchant autoSell;
 
@@ -20,8 +20,8 @@ public class AutoSellTimer extends BukkitRunnable {
 
     @Override
     public final void run() {
-        for (Player player : Bukkit.getOnlinePlayers()) {
-            ItemStack hand = player.getInventory().getItemInMainHand();
+        for (final Player player : Bukkit.getOnlinePlayers()) {
+            final ItemStack hand = player.getInventory().getItemInMainHand();
             if (!hand.getType().name().contains("PICKAXE")) continue;
 
             int level = this.autoSell.getEnchantmentLevel(hand);
@@ -30,15 +30,15 @@ public class AutoSellTimer extends BukkitRunnable {
             }
         }
 
-        this.minuteCounter++;
-        if (this.minuteCounter >= 60) {
-            this.minuteCounter = 0;
+        this.mills += 1000 * 60;
+        if (System.currentTimeMillis() - mills >= 3600000) {
+            this.mills = 0;
 
             for (Player player : Bukkit.getOnlinePlayers()) {
                 ItemStack hand = player.getInventory().getItemInMainHand();
                 if (!hand.getType().name().contains("PICKAXE")) continue;
 
-                int level = this.autoSell.getEnchantmentLevel(hand);
+                final int level = this.autoSell.getEnchantmentLevel(hand);
                 if (level > 0 && level < this.autoSell.getMaxLevel()) {
                     User.sellAllItems(player);
                 }

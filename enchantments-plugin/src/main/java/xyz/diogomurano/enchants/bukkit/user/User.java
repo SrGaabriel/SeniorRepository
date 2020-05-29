@@ -81,7 +81,7 @@ public class User {
             }
 
             if (levelsUp > 0) {
-                int level = customEnchant.upgradeEnchantment(hand, levelsUp);
+                final int level = customEnchant.upgradeEnchantment(hand, levelsUp);
 
                 player.sendMessage(ChatColor.AQUA + "Your pickaxe's " + customEnchant.getName() + " enchantment has been upgraded to level " + level);
             }
@@ -95,17 +95,17 @@ public class User {
         return hand;
     }
 
-    public static boolean handleBackpackCounter(final Player player, final int amount) {
-        PlayerInventory inventory = player.getInventory();
+    public static void handleBackpackCounter(final Player player, final int amount) {
+        final PlayerInventory inventory = player.getInventory();
         for (int i = 0; i < inventory.getSize(); i++) {
             ItemStack itemStack = inventory.getItem(i);
 
             if (itemStack != null && itemStack.hasItemMeta() && itemStack.getItemMeta().hasDisplayName() && itemStack.getItemMeta().getDisplayName().equals("§b§lMINING BACKPACK") && itemStack.getItemMeta().hasLore()) {
-                ItemNBT.Result result = ItemNBT.addCount(itemStack, Counter.BACKPACK, amount);
+                final ItemNBT.Result result = ItemNBT.addCount(itemStack, Counter.BACKPACK, amount);
                 itemStack = result.itemStack;
 
                 if (result.levelsUp > 0) {
-                    BackpackInfo info = ItemNBT.getBackpackInfo(itemStack);
+                    final BackpackInfo info = ItemNBT.getBackpackInfo(itemStack);
 
                     int levelsUp = result.levelsUp;
                     if (info.getLevel() + levelsUp > Backpack.getMaxLevel()) {
@@ -121,26 +121,22 @@ public class User {
 
                 inventory.setItem(i, itemStack);
                 player.updateInventory();
-
-                return true;
             }
         }
-
-        return false;
     }
 
     private static void addBackpackItem(final Player player, final ItemStack itemStack) {
         final PlayerInventory inventory = player.getInventory();
         for (int i = 0; i < inventory.getSize(); i++) {
-            ItemStack content = inventory.getItem(i);
+            final ItemStack content = inventory.getItem(i);
 
             if (content != null && content.hasItemMeta() && content.getItemMeta().hasDisplayName() && content.getItemMeta().getDisplayName().equals("§b§lMINING BACKPACK") && content.getItemMeta().hasLore()) {
-                BackpackInfo info = ItemNBT.getBackpackInfo(content);
-                int limit = info.getLevel() * 5000;
+                final BackpackInfo info = ItemNBT.getBackpackInfo(content);
+                final int limit = info.getLevel() * 5000;
 
                 if (info.getItems() >= limit) break;
 
-                Shop shop = SellHandler.getShop(player);
+                final Shop shop = SellHandler.getShop(player);
 
                 float itemsPrice = info.getItemsPrice();
                 itemsPrice += itemStack.getAmount() * shop.getBaseWorth(itemStack);
@@ -156,27 +152,31 @@ public class User {
                 info.setItemsPrice(itemsPrice);
                 info.setItems(itemsCount);
 
-                ItemMeta itemMeta = content.getItemMeta();
-                itemMeta.setLore(Arrays.asList(
-                        "",
-                        "§7Upgrade your backpack to gain more",
-                        "§7money while mining",
-                        "",
-                        "§fCurrent Level: §b" + info.getLevel(),
-                        "§f" + info.getItems() + '/' + limit,
-                        "§fAmount: §b" + info.getItemsPrice()
-                ));
-
-                content.setItemMeta(itemMeta);
-
-                content = ItemNBT.updateBackpack(content, info);
-
-                inventory.setItem(i, content);
-                player.updateInventory();
+                final ItemMeta itemMeta = content.getItemMeta();
+                formLore(player, inventory, i, content, info, limit, itemMeta);
 
                 break;
             }
         }
+    }
+
+    public static void formLore(Player player, PlayerInventory inventory, int i, ItemStack content, BackpackInfo info, int limit, ItemMeta itemMeta) {
+        itemMeta.setLore(Arrays.asList(
+                "",
+                "§7Upgrade your backpack to gain more",
+                "§7money while mining",
+                "",
+                "§fCurrent Level: §b" + info.getLevel(),
+                "§f" + info.getItems() + '/' + limit,
+                "§fAmount: §b" + info.getItemsPrice()
+        ));
+
+        content.setItemMeta(itemMeta);
+
+        content = ItemNBT.updateBackpack(content, info);
+
+        inventory.setItem(i, content);
+        player.updateInventory();
     }
 
     public static void sellAllItems(Player player) {
@@ -279,22 +279,7 @@ public class User {
                 info.setItemsPrice(0);
 
                 ItemMeta itemMeta = content.getItemMeta();
-                itemMeta.setLore(Arrays.asList(
-                        "",
-                        "§7Upgrade your backpack to gain more",
-                        "§7money while mining",
-                        "",
-                        "§fCurrent Level: §b" + info.getLevel(),
-                        "§f" + info.getItems() + '/' + limit,
-                        "§fAmount: §b" + info.getItemsPrice()
-                ));
-
-                content.setItemMeta(itemMeta);
-
-                content = ItemNBT.updateBackpack(content, info);
-
-                inventory.setItem(i, content);
-                player.updateInventory();
+                formLore(player, inventory, i, content, info, limit, itemMeta);
 
                 return new float[] { itemsPrice, count };
             }

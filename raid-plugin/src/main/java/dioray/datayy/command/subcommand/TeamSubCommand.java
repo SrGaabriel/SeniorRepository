@@ -3,8 +3,6 @@ package dioray.datayy.command.subcommand;
 import com.intellectualcrafters.plot.object.PlotArea;
 import com.intellectualcrafters.plot.object.PlotPlayer;
 import dioray.datayy.RaidPlugin;
-import dioray.datayy.database.TeamDao;
-import dioray.datayy.database.TeamPlayerDao;
 import dioray.datayy.model.Team;
 import dioray.datayy.model.TeamPlayer;
 import dioray.datayy.service.TeamService;
@@ -16,8 +14,6 @@ import java.util.Arrays;
 public class TeamSubCommand extends SubCommand {
 
     private final TeamService teamService;
-    private final TeamPlayerDao teamPlayerDao;
-    private final TeamDao teamDao;
 
     private final int createTeamPrice;
 
@@ -27,8 +23,6 @@ public class TeamSubCommand extends SubCommand {
         this.createTeamPrice = main.getConfig().getInt("create-team-price");
 
         this.teamService = main.getService(TeamService.class);
-        this.teamPlayerDao = main.getTeamPlayerDao();
-        this.teamDao = main.getTeamDao();
     }
 
     @Override

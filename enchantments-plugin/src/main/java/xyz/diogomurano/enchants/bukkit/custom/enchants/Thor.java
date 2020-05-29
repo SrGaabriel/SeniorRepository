@@ -3,6 +3,7 @@ package xyz.diogomurano.enchants.bukkit.custom.enchants;
 import com.asylumdevs.mines.Mines;
 import com.asylumdevs.mines.mine.Mine;
 import dioray.datayy.model.Team;
+import dioray.datayy.util.BlockUtil;
 import me.clip.ezblocks.EZBlocks;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -14,7 +15,6 @@ import org.bukkit.scheduler.BukkitRunnable;
 import xyz.diogomurano.enchants.bukkit.BukkitEnchantmentPlugin;
 import xyz.diogomurano.enchants.bukkit.custom.AbstractCustomEnchant;
 import xyz.diogomurano.enchants.bukkit.user.User;
-import dioray.datayy.util.BlockUtil;
 import xyz.diogomurano.enchants.custom.CustomEnchant;
 import xyz.diogomurano.enchants.custom.CustomEnchantService;
 
@@ -57,7 +57,7 @@ public final class Thor extends AbstractCustomEnchant {
         }
     }
 
-    private void destroyLighting(Location location, Player author, int level, Mine originMine) {
+    private void destroyLighting(final Location location, final Player author, final int level, final Mine originMine) {
         new BukkitRunnable() {
             int x = -xRange;
 
@@ -102,8 +102,8 @@ public final class Thor extends AbstractCustomEnchant {
         int brokenBlocks = 0;
 
         for (int y = 0; y > -yRange; y--) {
-            Block block = location.clone().add(0, y, 0).getBlock();
-            Location blockLocation = block.getLocation();
+            final Block block = location.clone().add(0, y, 0).getBlock();
+            final Location blockLocation = block.getLocation();
 
             if (block.getType() == Material.AIR) continue;
 
@@ -111,7 +111,7 @@ public final class Thor extends AbstractCustomEnchant {
 
             if (!BlockUtil.canBeBroken(block)) continue;
 
-            Mine mine = Mines.getAPI().getByLocation(blockLocation);
+            final Mine mine = Mines.getAPI().getByLocation(blockLocation);
             if (mine == null || !mine.getName().equals(originMine.getName())) continue;
 
             brokenBlocks++;
@@ -128,12 +128,12 @@ public final class Thor extends AbstractCustomEnchant {
 
             User.addItem(player, drop);
 
-            ItemStack newHand = User.handleCounter(player, hand, false);
+            final ItemStack newHand = User.handleCounter(player, hand, false);
             if (newHand != null) {
                 hand = newHand;
             }
 
-            int blocksRemaining = mine.getBlocksRemaining();
+            final int blocksRemaining = mine.getBlocksRemaining();
             if (blocksRemaining > 0 && mine.getBlocksTotal() != 0) {
                 mine.setBlocksRemaining(blocksRemaining - 1);
             }
