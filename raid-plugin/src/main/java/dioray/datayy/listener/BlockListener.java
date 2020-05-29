@@ -1,56 +1,18 @@
 package dioray.datayy.listener;
 
-import com.intellectualcrafters.plot.PS;
 import com.intellectualcrafters.plot.object.Location;
-import com.intellectualcrafters.plot.object.OfflinePlotPlayer;
 import com.intellectualcrafters.plot.object.Plot;
-import com.plotsquared.bukkit.util.OfflinePlayerUtil;
-import com.plotsquared.bukkit.uuid.OfflineUUIDWrapper;
-import com.sk89q.worldedit.bukkit.BukkitPlayer;
-import com.sk89q.worldedit.bukkit.WorldEditPlugin;
-import dioray.datayy.RaidPlugin;
-import dioray.datayy.prototype.wall.position.BlockPosition;
-import dioray.datayy.prototype.wall.PlotWall;
 import dioray.datayy.prototype.player.TeamPlayer;
-import dioray.datayy.service.*;
-import dioray.datayy.util.BlockUtil;
-import dioray.datayy.util.Util;
+import dioray.datayy.prototype.wall.PlotWall;
 import org.bukkit.Material;
-import org.bukkit.block.BlockFace;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockFromToEvent;
-import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.inventory.ItemStack;
 
 public class BlockListener implements Listener {
-
-    private final RaidPlugin main;
-
-    private final MessageService messageService;
-    private final TeamPlayerService teamPlayerService;
-    private final TeamService teamService;
-    private final PlotWallService plotWallService;
-    private final ValueBoosterService valueBoosterService;
-    private final RaidService raidService;
-    private final TeamDao teamDao;
-    private final PlotWallDao plotWallDao;
-
-    public BlockListener(RaidPlugin main) {
-        this.main = main;
-
-        this.messageService = main.getService(MessageService.class);
-        this.teamPlayerService = main.getService(TeamPlayerService.class);
-        this.teamService = main.getService(TeamService.class);
-        this.plotWallService = main.getService(PlotWallService.class);
-        this.valueBoosterService = main.getService(ValueBoosterService.class);
-        this.raidService = main.getService(RaidService.class);
-        this.teamDao = main.getTeamDao();
-        this.plotWallDao = main.getPlotWallDao();
-    }
-
 
     @EventHandler
     public void onBlockBreak(BlockBreakEvent event) {
@@ -154,70 +116,6 @@ public class BlockListener implements Listener {
                 event.setDropItems(false);
                 event.setCancelled(false);
             }
-        }
-    }
-
-    @EventHandler
-    public void onBlockPlace(BlockPlaceEvent e) {
-        Location plotLocation = Util.toPlotLocation(e.getBlock().getLocation());
-        Plot plot = plotLocation.getPlot();
-        if (plot == null || !this.main.isRaidPlot(plot)) return;
-
-        TeamPlayer placerTeamPlayer = teamPlayerService.getTeamPlayerByPlayer(e.getPlayer());
-        Team placerTeam = placerTeamPlayer.getTeam();
-        if (placerTeam == null) return;
-
-        Team plotTeam = teamService.getByPlot(plot);
-
-        if (placerTeam.equals(plotTeam)) {
-            Team raidingTeam = teamService.getRaidingTeam(plot);
-            if (raidingTeam != null) {
-                e.setCancelled(true);
-
-                return;
-            }
-
-            int level = plotWallService.getLevelFromItemStack(e.getItemInHand());
-            if (level == -1) {
-                e.setCancelled(true);
-
-                return;
-            }
-
-            Material belowType = e.getBlock().getRelative(BlockFace.DOWN).getType();
-            if (belowType != Material.DIAMOND_BLOCK && belowType != this.main.getPlotWallType()) {
-                messageService.sendMessage(e.getPlayer(), "plotwall.not-diamond");
-                e.setCancelled(true);
-
-                return;
-            }
-
-            if (belowType == this.main.getPlotWallType()) {
-                int plotWallCount = 1;
-                for (int i = -1; i >= -3; i--) {
-                    if (e.getBlock().getRelative(0, i, 0).getType() == this.main.getPlotWallType()) {
-                        plotWallCount++;
-                    }
-                }
-
-                if (plotWallCount > 3) {
-                    messageService.sendMessage(e.getPlayer(), "plotwall.limit");
-
-                    e.setCancelled(true);
-
-                    return;
-                }
-            }
-
-            BukkitPlayer player = WorldEditPlugin.getPlugin(WorldEditPlugin.class).wrapPlayer(e.getPlayer());
-            PlotWall plotWall = new PlotWall(level, new BlockPosition(e.getBlock().getLocation()), plot, player.getCardinalDirection());
-            plotWallDao.insert(plotWall);
-
-            return;
-        }
-
-        if (placerTeam.isRaiding(plot)) {
-            e.setCancelled(true);
         }
     }
 

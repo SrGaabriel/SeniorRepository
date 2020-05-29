@@ -35,4 +35,5 @@ public class RaidRepository implements Repository<Team, Team> {
     public Team get(Team key) {
         return raidMap.get(key);
     }
+
 }

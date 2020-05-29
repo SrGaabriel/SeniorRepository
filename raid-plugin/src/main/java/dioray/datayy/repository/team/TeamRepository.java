@@ -1,9 +1,12 @@
 package dioray.datayy.repository.team;
 
 import com.google.common.collect.Maps;
+import com.intellectualcrafters.plot.object.Plot;
 import dioray.datayy.prototype.Team;
 import dioray.datayy.prototype.player.TeamPlayer;
+import dioray.datayy.prototype.wall.PlotWall;
 import dioray.datayy.repository.Repository;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
 import java.util.Map;
@@ -44,6 +47,24 @@ public class TeamRepository implements Repository<String, Team> {
                 if(teamPlayer.getUuid().compareTo(player.getUniqueId()) == 0) return teamPlayer;
             }
         } return null;
+    }
+
+    public PlotWall get(Location location) {
+        for(Team team : teamMap.values()) {
+            for(PlotWall wall : team.getWalls()) {
+                if(isSameLocation(wall, location)) return wall;
+            }
+        } return null;
+    }
+
+    public Team get(Plot plot) {
+        for(Team team : teamMap.values()) {
+            if(team.getPlot().guessOwner().compareTo(plot.guessOwner()) == 0) return team;
+        } return null;
+    }
+
+    private boolean isSameLocation(PlotWall plotWall, Location location) {
+        return plotWall.getX() == location.getBlockX() && plotWall.getY() == location.getBlockY() && plotWall.getZ() == location.getBlockZ();
     }
 
 }

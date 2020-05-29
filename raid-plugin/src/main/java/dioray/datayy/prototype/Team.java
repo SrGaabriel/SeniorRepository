@@ -3,6 +3,7 @@ package dioray.datayy.prototype;
 import com.google.common.collect.Lists;
 import com.intellectualcrafters.plot.object.Plot;
 import dioray.datayy.prototype.player.TeamPlayer;
+import dioray.datayy.prototype.wall.PlotWall;
 import lombok.Data;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -20,6 +21,7 @@ public class Team {
     private Plot plot;
 
     private List<TeamPlayer> players = Lists.newLinkedList();
+    private List<PlotWall> walls = Lists.newLinkedList();
 
     private int[] base;
 
