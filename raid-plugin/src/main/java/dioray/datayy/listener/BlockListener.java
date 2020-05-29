@@ -5,12 +5,9 @@ import com.intellectualcrafters.plot.object.Plot;
 import com.sk89q.worldedit.bukkit.BukkitPlayer;
 import com.sk89q.worldedit.bukkit.WorldEditPlugin;
 import dioray.datayy.RaidPlugin;
-import dioray.datayy.database.PlotWallDao;
-import dioray.datayy.database.TeamDao;
-import dioray.datayy.model.BlockPosition;
-import dioray.datayy.model.PlotWall;
-import dioray.datayy.model.Team;
-import dioray.datayy.model.TeamPlayer;
+import dioray.datayy.prototype.wall.position.BlockPosition;
+import dioray.datayy.prototype.wall.PlotWall;
+import dioray.datayy.prototype.player.TeamPlayer;
 import dioray.datayy.service.*;
 import dioray.datayy.util.BlockUtil;
 import dioray.datayy.util.Util;
@@ -220,7 +217,7 @@ public class BlockListener implements Listener {
         }
     }
 
-    @EventHandler(priority = EventPriority.MONITOR)
+    @EventHandler(priority = EventPriority.LOW)
     public void onBlockTeleport(BlockFromToEvent e) {
         if (e.getBlock().getType() == Material.DRAGON_EGG) {
             Location plotLocation = Util.toPlotLocation(e.getBlock().getLocation());

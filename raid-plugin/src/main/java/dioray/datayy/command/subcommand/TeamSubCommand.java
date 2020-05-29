@@ -1,11 +1,14 @@
 package dioray.datayy.command.subcommand;
 
+import com.intellectualcrafters.plot.object.Plot;
 import com.intellectualcrafters.plot.object.PlotArea;
+import com.intellectualcrafters.plot.object.PlotId;
 import com.intellectualcrafters.plot.object.PlotPlayer;
+import com.intellectualcrafters.plot.util.SchematicHandler;
 import dioray.datayy.RaidPlugin;
-import dioray.datayy.model.Team;
-import dioray.datayy.model.TeamPlayer;
-import dioray.datayy.service.TeamService;
+import dioray.datayy.prototype.player.type.Role;
+import dioray.datayy.prototype.player.TeamPlayer;
+import dioray.datayy.util.Util;
 import net.milkbowl.vault.economy.EconomyResponse;
 import org.bukkit.entity.Player;
 
@@ -14,6 +17,8 @@ import java.util.Arrays;
 public class TeamSubCommand extends SubCommand {
 
     private final TeamService teamService;
+    private final TeamPlayerDao teamPlayerDao;
+    private final TeamDao teamDao;
 
     private final int createTeamPrice;
 
@@ -23,6 +28,8 @@ public class TeamSubCommand extends SubCommand {
         this.createTeamPrice = main.getConfig().getInt("create-team-price");
 
         this.teamService = main.getService(TeamService.class);
+        this.teamPlayerDao = main.getTeamPlayerDao();
+        this.teamDao = main.getTeamDao();
     }
 
     @Override
@@ -97,7 +104,7 @@ public class TeamSubCommand extends SubCommand {
         PlotArea plotArea = this.main.getPlotArea();
         PlotPlayer plotPlayer = PlotPlayer.wrap(player);
 
-        /* TODO Plot freePlot = plotArea.getNextFreePlot(plotPlayer, new PlotId(0, 0));
+        Plot freePlot = plotArea.getNextFreePlot(plotPlayer, new PlotId(0, 0));
         plotArea.getPlotManager().claimPlot(plotArea, freePlot);
         freePlot.setOwner(player.getUniqueId());
 
@@ -115,7 +122,7 @@ public class TeamSubCommand extends SubCommand {
         teamPlayerDao.update(teamPlayer);
 
         team.addPlayer(teamPlayer);
-        messageService.sendMessage(player, "command.raid.team.success");*/
+        messageService.sendMessage(player, "command.raid.team.success");
     }
 
 }

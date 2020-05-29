@@ -2,10 +2,8 @@ package dioray.datayy.listener;
 
 import com.plotsquared.bukkit.events.PlayerClaimPlotEvent;
 import dioray.datayy.RaidPlugin;
-import dioray.datayy.model.Team;
-import dioray.datayy.model.TeamPlayer;
+import dioray.datayy.prototype.player.TeamPlayer;
 import dioray.datayy.service.MessageService;
-import dioray.datayy.service.TeamPlayerService;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 

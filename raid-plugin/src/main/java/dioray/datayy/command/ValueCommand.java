@@ -1,11 +1,9 @@
 package dioray.datayy.command;
 
 import dioray.datayy.RaidPlugin;
-import dioray.datayy.item.ValueVoucher;
-import dioray.datayy.model.Team;
-import dioray.datayy.model.TeamPlayer;
+import dioray.datayy.provider.VoucherProvider;
+import dioray.datayy.prototype.player.TeamPlayer;
 import dioray.datayy.service.MessageService;
-import dioray.datayy.service.TeamPlayerService;
 import dioray.datayy.service.ValueBoosterService;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
@@ -123,7 +121,7 @@ public class ValueCommand implements CommandExecutor {
                     return true;
                 }
 
-                ItemStack voucher = ValueVoucher.create(amount);
+                ItemStack voucher = VoucherProvider.create(amount);
                 if (target.getInventory().addItem(voucher).size() == 0) {
                     messageService.sendMessage(sender, "command.value.voucher.gave", "player", target.getName(), "amount", amount);
                 } else {

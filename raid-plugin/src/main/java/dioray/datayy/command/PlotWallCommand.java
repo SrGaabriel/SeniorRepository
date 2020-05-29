@@ -1,12 +1,8 @@
 package dioray.datayy.command;
 
 import dioray.datayy.RaidPlugin;
-import dioray.datayy.database.TeamDao;
-import dioray.datayy.model.Team;
-import dioray.datayy.model.TeamPlayer;
+import dioray.datayy.prototype.player.TeamPlayer;
 import dioray.datayy.service.MessageService;
-import dioray.datayy.service.PlotWallService;
-import dioray.datayy.service.TeamPlayerService;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;

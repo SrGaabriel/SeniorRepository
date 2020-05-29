@@ -1,2 +1,9 @@
 # Project exclude paths
-/.gradle/
+.gradle
+.idea
+dependencies
+gradle
+.gitignore
+gradlew
+gradlew.bat
+settings.gradle.kts
