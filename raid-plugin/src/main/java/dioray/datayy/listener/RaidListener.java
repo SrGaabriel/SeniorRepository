@@ -86,6 +86,8 @@ public class RaidListener  implements Listener {
         if(!worldProvider.isWorld(location)) {
             ItemStack itemStack = player.getInventory().getItemInMainHand();
 
+            if(!itemStack.getType().isItem() && !itemStack.getType().name().contains("PICKAXE")) return;
+
 
 
         }
