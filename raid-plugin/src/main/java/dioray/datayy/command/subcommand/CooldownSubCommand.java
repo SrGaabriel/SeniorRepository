@@ -1,8 +1,7 @@
 package dioray.datayy.command.subcommand;
 
 import dioray.datayy.RaidPlugin;
-import dioray.datayy.model.Team;
-import dioray.datayy.service.MessageService;
+import dioray.datayy.prototype.Team;
 import dioray.datayy.service.SearchCooldownService;
 import dioray.datayy.service.TeamService;
 import org.bukkit.entity.Player;

@@ -1,10 +1,8 @@
 package dioray.datayy.listener;
 
 import dioray.datayy.RaidPlugin;
-import dioray.datayy.inventory.TopInventoryHolder;
-import dioray.datayy.prototype.wall.PlotWall;
 import dioray.datayy.prototype.player.TeamPlayer;
-import dioray.datayy.service.MessageService;
+import dioray.datayy.prototype.wall.PlotWall;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

@@ -1,14 +1,11 @@
 package dioray.datayy.command.subcommand;
 
 import dioray.datayy.RaidPlugin;
-import dioray.datayy.database.TeamDao;
 import dioray.datayy.database.TeamPlayerDao;
-import dioray.datayy.model.Role;
-import dioray.datayy.model.Team;
-import dioray.datayy.model.TeamPlayer;
+import dioray.datayy.prototype.Role;
+import dioray.datayy.prototype.Team;
+import dioray.datayy.prototype.TeamPlayer;
 import dioray.datayy.service.InviteService;
-import dioray.datayy.service.MessageService;
-import dioray.datayy.service.TeamPlayerService;
 import org.bukkit.entity.Player;
 
 public final class AcceptSubCommand extends SubCommand {

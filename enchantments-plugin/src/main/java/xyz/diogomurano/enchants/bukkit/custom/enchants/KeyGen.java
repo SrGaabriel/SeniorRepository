@@ -10,12 +10,10 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public final class KeyGen extends AbstractCustomEnchant {
 
-    private final Map<String, Double> commands;
+    private final Map<String, Double> commands = new HashMap<>();
 
     public KeyGen() {
         super(UUID.randomUUID(), "KeyGen");
-
-        commands = new HashMap<>();
 
         for (String key : getConfiguration().getConfigurationSection("enchants.KeyGen").getKeys(false)) {
             if(!key.equalsIgnoreCase("price")) {
@@ -33,7 +31,7 @@ public final class KeyGen extends AbstractCustomEnchant {
             int r = ThreadLocalRandom.current().nextInt(100);
 
             commands.forEach((s, aDouble) -> {
-                if(r < aDouble) {
+                if (r < aDouble) {
                     Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), s);
                 }
             });

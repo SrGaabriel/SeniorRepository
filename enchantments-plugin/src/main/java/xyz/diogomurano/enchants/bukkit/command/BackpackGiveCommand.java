@@ -19,12 +19,12 @@ public final class BackpackGiveCommand implements CommandExecutor {
     public final boolean onCommand(final CommandSender sender, final Command command, final String label, final String[] args) {
         if (!sender.hasPermission("command.backpackgive")) {
             sender.sendMessage(ChatColor.RED + "You dont have permission to do that!");
-            return true;
+            return false;
         }
 
         if (args.length < 3) {
             sender.sendMessage(ChatColor.RED + "Usage: /backpack give <level> <player>");
-            return true;
+            return false;
         }
 
         final Integer level = NumberUtils.isNumber(args[1]) ? Integer.parseInt(args[1]) : null;
@@ -36,8 +36,7 @@ public final class BackpackGiveCommand implements CommandExecutor {
         final Player target = Bukkit.getPlayer(args[2]);
         if (target == null) {
             sender.sendMessage(ChatColor.RED + args[2] + " is offline");
-
-            return true;
+            return false;
         }
 
         ItemStack backpackItemStack = new ItemBuilder(Material.SKULL_ITEM)

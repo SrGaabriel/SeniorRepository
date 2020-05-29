@@ -1,6 +1,5 @@
 package dioray.datayy.placeholder;
 
-import dioray.datayy.RaidPlugin;
 import dioray.datayy.prototype.player.TeamPlayer;
 import dioray.datayy.repository.team.TeamRepository;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;

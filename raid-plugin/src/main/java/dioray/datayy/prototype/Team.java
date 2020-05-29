@@ -8,7 +8,7 @@ import lombok.Data;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
-import java.util.*;
+import java.util.List;
 
 @RequiredArgsConstructor
 @Data

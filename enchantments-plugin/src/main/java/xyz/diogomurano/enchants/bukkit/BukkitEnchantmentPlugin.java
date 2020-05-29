@@ -1,6 +1,5 @@
 package xyz.diogomurano.enchants.bukkit;
 
-import dioray.datayy.util.BlockUtil;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -63,7 +62,6 @@ public final class BukkitEnchantmentPlugin extends JavaPlugin implements Enchant
 
         registerEnchants();
 
-        BlockUtil.init();
         Backpack.init();
 
         new AutoSellTimer(this).runTaskTimerAsynchronously(this, 0, 20);

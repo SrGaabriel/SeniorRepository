@@ -1,8 +1,8 @@
 package dioray.datayy.command.subcommand;
 
 import dioray.datayy.RaidPlugin;
-import dioray.datayy.prototype.player.type.Role;
 import dioray.datayy.prototype.player.TeamPlayer;
+import dioray.datayy.prototype.player.type.Role;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 

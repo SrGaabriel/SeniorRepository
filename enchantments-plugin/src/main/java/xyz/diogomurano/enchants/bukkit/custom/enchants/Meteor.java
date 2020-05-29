@@ -1,7 +1,7 @@
 package xyz.diogomurano.enchants.bukkit.custom.enchants;
 
 import com.asylumdevs.mines.Mines;
-import dioray.datayy.model.Team;
+import dioray.datayy.prototype.Team;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
@@ -45,7 +45,7 @@ public final class Meteor extends AbstractCustomEnchant {
         }
 
         if (team != null) {
-            getTeamDao().update(team);
+            getTeamService().put(team.getPrefix(), team);
         }
     }
 

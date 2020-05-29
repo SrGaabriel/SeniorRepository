@@ -15,7 +15,9 @@ public final class Haste extends AbstractCustomEnchant {
     }
 
     @Override
-    public final void run(Player player, Block block, int level) {}
+    public final void run(Player player, Block block, int level) {
+
+    }
 
     @Override
     public final List<String> getLore() {

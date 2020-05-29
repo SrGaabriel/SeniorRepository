@@ -1,7 +1,7 @@
 package dioray.datayy.prototype.player;
 
-import dioray.datayy.prototype.player.type.Role;
 import dioray.datayy.prototype.Team;
+import dioray.datayy.prototype.player.type.Role;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
