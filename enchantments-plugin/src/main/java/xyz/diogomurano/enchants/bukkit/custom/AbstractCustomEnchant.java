@@ -10,6 +10,7 @@ import dioray.datayy.model.TeamPlayer;
 import dioray.datayy.service.PlotWallService;
 import dioray.datayy.service.TeamPlayerService;
 import dioray.datayy.service.TeamService;
+import dioray.datayy.util.BlockUtil;
 import lombok.Data;
 import lombok.NonNull;
 import me.clip.ezblocks.EZBlocks;
@@ -24,7 +25,6 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import xyz.diogomurano.enchants.bukkit.BukkitEnchantmentPlugin;
 import xyz.diogomurano.enchants.bukkit.user.User;
-import dioray.datayy.util.BlockUtil;
 import xyz.diogomurano.enchants.custom.CustomEnchant;
 
 import java.util.ArrayList;
@@ -60,7 +60,7 @@ public abstract class AbstractCustomEnchant implements CustomEnchant {
         this.teamService = RaidPlugin.getInstance().getService(TeamService.class);
         this.teamPlayerService = RaidPlugin.getInstance().getService(TeamPlayerService.class);
     }
-    
+
     @Override
     public final Integer getMaxLevel() {
         return maxLevel;

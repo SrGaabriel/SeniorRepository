@@ -17,7 +17,7 @@ public final class Efficiency extends AbstractCustomEnchant {
     }
 
     @Override
-    public final void run(Player player, Block block, int level) {}
+    public final void run(final Player player, final Block block, int level) {}
 
     @Override
     public final List<String> getLore() {
@@ -27,7 +27,6 @@ public final class Efficiency extends AbstractCustomEnchant {
     @Override
     public final void addEnchantment(ItemStack stack, Integer level) {
         stack.addUnsafeEnchantment(Enchantment.DIG_SPEED, level);
-
         super.addEnchantment(stack, level);
     }
 }

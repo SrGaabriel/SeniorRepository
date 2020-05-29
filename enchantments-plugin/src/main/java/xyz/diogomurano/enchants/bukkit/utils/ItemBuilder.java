@@ -18,7 +18,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.function.Consumer;
 
-public class ItemBuilder {
+public final class ItemBuilder {
 
     private final ItemStack item;
 
@@ -62,27 +62,27 @@ public class ItemBuilder {
         return this.changeItem(itemStack -> itemStack.setDurability((short) durability));
     }
 
-    public ItemBuilder enchant(Enchantment enchantment, int level) {
+    public final ItemBuilder enchant(Enchantment enchantment, int level) {
         return this.changeItem(itemStack -> itemStack.addEnchantment(enchantment, level));
     }
 
-    public ItemBuilder removeEnchant(Enchantment enchantment) {
+    public final ItemBuilder removeEnchant(Enchantment enchantment) {
         return this.changeItem(itemStack -> itemStack.removeEnchantment(enchantment));
     }
 
-    public ItemBuilder flags(ItemFlag... flags) {
+    public final ItemBuilder flags(ItemFlag... flags) {
         return this.changeMeta(itemMeta -> itemMeta.addItemFlags(flags));
     }
 
-    public ItemBuilder removeFlags(ItemFlag... flags) {
+    public final ItemBuilder removeFlags(ItemFlag... flags) {
         return this.changeMeta(itemMeta -> itemMeta.removeItemFlags(flags));
     }
 
-    public ItemBuilder owner(String name) {
+    public final ItemBuilder owner(String name) {
         return this.changeMeta(itemMeta -> ((SkullMeta) itemMeta).setOwner(name));
     }
 
-    public ItemBuilder glow() {
+    public final ItemBuilder glow() {
         try {
             Constructor<?> caller = MinecraftReflection.getCraftItemStackClass()
                     .getDeclaredConstructor(ItemStack.class);
@@ -97,7 +97,7 @@ public class ItemBuilder {
         return this;
     }
 
-    public ItemStack build() {
+    public final ItemStack build() {
         return this.item;
     }
 }

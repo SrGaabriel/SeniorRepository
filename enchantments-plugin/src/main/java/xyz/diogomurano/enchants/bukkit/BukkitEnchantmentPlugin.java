@@ -1,5 +1,6 @@
 package xyz.diogomurano.enchants.bukkit;
 
+import dioray.datayy.util.BlockUtil;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -18,13 +19,12 @@ import xyz.diogomurano.enchants.bukkit.item.Backpack;
 import xyz.diogomurano.enchants.bukkit.listener.GeneralListener;
 import xyz.diogomurano.enchants.bukkit.listener.InventoryListener;
 import xyz.diogomurano.enchants.bukkit.timer.AutoSellTimer;
-import dioray.datayy.util.BlockUtil;
 import xyz.diogomurano.enchants.bukkit.utils.menu.MenuListener;
 import xyz.diogomurano.enchants.custom.CustomEnchantService;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class BukkitEnchantmentPlugin extends JavaPlugin implements EnchantmentPlugin {
+public final class BukkitEnchantmentPlugin extends JavaPlugin implements EnchantmentPlugin {
 
     private static BukkitEnchantmentPlugin instance;
     @Getter
@@ -33,14 +33,14 @@ public class BukkitEnchantmentPlugin extends JavaPlugin implements EnchantmentPl
     private net.milkbowl.vault.economy.Economy economy;
 
     @Override
-    public void onLoad() {
+    public final void onLoad() {
         instance = this;
 
         Settings.load(this);
     }
 
     @Override
-    public void onEnable() {
+    public final void onEnable() {
         enchantService = new CustomEnchantServiceImpl();
 
         if (!hookEconomy()) {
@@ -74,7 +74,7 @@ public class BukkitEnchantmentPlugin extends JavaPlugin implements EnchantmentPl
     }
 
     private boolean hookEconomy() {
-        RegisteredServiceProvider<net.milkbowl.vault.economy.Economy> rsp = getServer().getServicesManager().getRegistration(Economy.class);
+        final RegisteredServiceProvider<net.milkbowl.vault.economy.Economy> rsp = getServer().getServicesManager().getRegistration(Economy.class);
         if (rsp == null) return false;
 
         return (this.economy = rsp.getProvider()) != null;
@@ -96,7 +96,7 @@ public class BukkitEnchantmentPlugin extends JavaPlugin implements EnchantmentPl
     }
 
     @Override
-    public CustomEnchantService getEnchantService() {
+    public final CustomEnchantService getEnchantService() {
         return enchantService;
     }
 

@@ -3,6 +3,7 @@ package xyz.diogomurano.enchants.bukkit.custom.enchants;
 import com.asylumdevs.mines.Mines;
 import com.asylumdevs.mines.mine.Mine;
 import dioray.datayy.model.Team;
+import dioray.datayy.util.BlockUtil;
 import me.clip.ezblocks.EZBlocks;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -13,7 +14,6 @@ import org.bukkit.scheduler.BukkitRunnable;
 import xyz.diogomurano.enchants.bukkit.BukkitEnchantmentPlugin;
 import xyz.diogomurano.enchants.bukkit.custom.AbstractCustomEnchant;
 import xyz.diogomurano.enchants.bukkit.user.User;
-import dioray.datayy.util.BlockUtil;
 import xyz.diogomurano.enchants.custom.CustomEnchant;
 import xyz.diogomurano.enchants.custom.CustomEnchantService;
 

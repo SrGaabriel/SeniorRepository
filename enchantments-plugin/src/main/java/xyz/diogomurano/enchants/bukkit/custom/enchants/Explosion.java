@@ -31,11 +31,11 @@ public final class Explosion extends AbstractCustomEnchant {
     }
 
     @Override
-    public final void run(Player player, Block block, int level) {
-        float chance = this.calculateChance(level);
+    public final void run(final Player player, final Block block, final int level) {
+        final float chance = this.calculateChance(level);
 
         if (ThreadLocalRandom.current().nextFloat() <= chance) {
-            Location location = block.getLocation().clone();
+            final Location location = block.getLocation().clone();
 
             explosionPlayer.put(location, player);
             location.getWorld().createExplosion(location.getX(), location.getY(), location.getZ(), 8.0F, false, true);
@@ -43,22 +43,17 @@ public final class Explosion extends AbstractCustomEnchant {
     }
 
     @EventHandler
-    public final void onBlockExplodeEvent(BlockExplodeEvent event) {
+    public final void onBlockExplodeEvent(final BlockExplodeEvent event) {
         final Player player = explosionPlayer.remove(event.getBlock().getLocation());
         if (player != null) {
             event.setCancelled(true);
 
             final Team team = getTeamPlayer(player).getTeam();
 
-            Mine originMine = Mines.getAPI().getByLocation(event.getBlock().getLocation());
-
-            final CustomEnchant fortune = this.enchantService.get("Fortune");
-
             for (Block block : event.blockList()) {
-                ItemStack hand = player.getInventory().getItemInMainHand();
-                int level = Explosion.this.getEnchantmentLevel(hand);
+                final int level = Explosion.this.getEnchantmentLevel(player.getInventory().getItemInMainHand());
 
-                handleBlockBreak(player, block, level, fortune, team, originMine);
+                handleBlockBreak(player, block, level, enchantService.get("Fortune"), team, Mines.getAPI().getByLocation(event.getBlock().getLocation()));
             }
 
             if (team != null) {
@@ -68,7 +63,7 @@ public final class Explosion extends AbstractCustomEnchant {
     }
 
     @EventHandler
-    public final void onEntityDamageEvent(EntityDamageEvent event) {
+    public final void onEntityDamageEvent(final EntityDamageEvent event) {
         if (event.getEntity() instanceof Player && event.getCause() == EntityDamageEvent.DamageCause.BLOCK_EXPLOSION) {
             event.setCancelled(true);
         }
@@ -76,6 +71,6 @@ public final class Explosion extends AbstractCustomEnchant {
 
     @Override
     public final List<String> getLore() {
-        return Arrays.asList("§7A little bit that drill");
+        return Collections.singletonList("§7A little bit that drill");
     }
 }
