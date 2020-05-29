@@ -1,4 +1,4 @@
-package xyz.diogomurano.enchants.bukkit.utils;
+package dioray.datayy.util;
 
 import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
 import com.sk89q.worldguard.protection.ApplicableRegionSet;
@@ -15,7 +15,7 @@ public final class BlockUtil {
         BlockUtil.blockBreakFlag = (StateFlag) WorldGuardPlugin.inst().getFlagRegistry().get("block-break");
     }
 
-    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
+    @SuppressWarnings({"BooleanMethodIsAlwaysInverted"})
     public static boolean canBeBroken(Block block) {
         RegionManager regionManager = WorldGuardPlugin.inst().getRegionManager(block.getWorld());
         if (regionManager == null) return false;
@@ -26,6 +26,7 @@ public final class BlockUtil {
         return regionSet.getRegions().stream().anyMatch(region -> region.getFlag(BlockUtil.blockBreakFlag) == StateFlag.State.ALLOW);
     }
 
+    @SuppressWarnings("deprecation")
     public static ItemStack getItem(Block block) {
         return new ItemStack(block.getType(), 1, block.getData());
     }

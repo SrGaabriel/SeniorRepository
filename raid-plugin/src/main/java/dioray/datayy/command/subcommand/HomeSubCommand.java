@@ -6,7 +6,7 @@ import dioray.datayy.util.Util;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
-public class HomeSubCommand extends SubCommand {
+public final class HomeSubCommand extends SubCommand {
 
     public HomeSubCommand(RaidPlugin main) {
         super(main, "home", "Go to your teams's home");

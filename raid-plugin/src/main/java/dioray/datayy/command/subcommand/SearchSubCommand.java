@@ -8,12 +8,12 @@ import dioray.datayy.service.RaidService;
 import dioray.datayy.service.SearchCooldownService;
 import org.bukkit.entity.Player;
 
-public class SearchSubCommand extends SubCommand {
+public final class SearchSubCommand extends SubCommand {
 
     private final SearchCooldownService searchCooldownService;
     private final RaidService raidService;
 
-    public SearchSubCommand(RaidPlugin main) {
+    public SearchSubCommand(final RaidPlugin main) {
         super(main, "search", "Search for raids");
 
         this.searchCooldownService = main.getService(SearchCooldownService.class);
@@ -21,10 +21,10 @@ public class SearchSubCommand extends SubCommand {
     }
 
     @Override
-    public void run(Player player, String[] args) {
-        TeamPlayer teamPlayer = teamPlayerService.getTeamPlayerByPlayer(player);
+    public final void run(final Player player, final String[] args) {
+        final TeamPlayer teamPlayer = teamPlayerService.getTeamPlayerByPlayer(player);
 
-        Team team = teamPlayer.getTeam();
+        final Team team = teamPlayer.getTeam();
         if (team == null) {
             messageService.sendMessage(player, "command.raid.search.no-team");
 
@@ -39,13 +39,11 @@ public class SearchSubCommand extends SubCommand {
 
         if (team.isRaiding()) {
             messageService.sendMessage(player, "command.raid.search.already-raiding");
-
             return;
         }
 
         if (searchCooldownService.inCooldown(team)) {
             String remaining = searchCooldownService.formatRemaining(team);
-
             messageService.sendMessage(player, "command.raid.search.cooldown", "time", remaining);
             return;
         }

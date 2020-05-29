@@ -11,7 +11,7 @@ import dioray.datayy.service.MessageService;
 import dioray.datayy.service.TeamPlayerService;
 import org.bukkit.entity.Player;
 
-public class AcceptSubCommand extends SubCommand {
+public final class AcceptSubCommand extends SubCommand {
 
     private final InviteService inviteService;
     private final TeamPlayerDao teamPlayerDao;
@@ -24,11 +24,10 @@ public class AcceptSubCommand extends SubCommand {
     }
 
     @Override
-    public void run(Player player, String[] args) {
-        Team inviteTeam = inviteService.getInvite(player);
+    public void run(final Player player, final String[] args) {
+        final Team inviteTeam = inviteService.getInvite(player);
         if (inviteTeam == null) {
             messageService.sendMessage(player, "command.raid.accept.no-invite");
-
             return;
         }
 
@@ -39,7 +38,7 @@ public class AcceptSubCommand extends SubCommand {
         }
 
 
-        TeamPlayer teamPlayer = teamPlayerService.getTeamPlayerByPlayer(player);
+        final TeamPlayer teamPlayer = teamPlayerService.getTeamPlayerByPlayer(player);
         teamPlayer.setRole(Role.MEMBER);
         teamPlayer.setTeam(inviteTeam);
         teamPlayer.resetCounter();

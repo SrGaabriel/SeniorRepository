@@ -18,7 +18,7 @@ import xyz.diogomurano.enchants.bukkit.item.Backpack;
 import xyz.diogomurano.enchants.bukkit.listener.GeneralListener;
 import xyz.diogomurano.enchants.bukkit.listener.InventoryListener;
 import xyz.diogomurano.enchants.bukkit.timer.AutoSellTimer;
-import xyz.diogomurano.enchants.bukkit.utils.BlockUtil;
+import dioray.datayy.util.BlockUtil;
 import xyz.diogomurano.enchants.bukkit.utils.menu.MenuListener;
 import xyz.diogomurano.enchants.custom.CustomEnchantService;
 
@@ -74,7 +74,7 @@ public class BukkitEnchantmentPlugin extends JavaPlugin implements EnchantmentPl
     }
 
     private boolean hookEconomy() {
-        RegisteredServiceProvider<Economy> rsp = getServer().getServicesManager().getRegistration(Economy.class);
+        RegisteredServiceProvider<net.milkbowl.vault.economy.Economy> rsp = getServer().getServicesManager().getRegistration(Economy.class);
         if (rsp == null) return false;
 
         return (this.economy = rsp.getProvider()) != null;

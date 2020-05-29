@@ -22,7 +22,7 @@ import xyz.diogomurano.enchants.EnchantmentPlugin;
 import xyz.diogomurano.enchants.bukkit.inventory.BackpackUpgradeInventory;
 import xyz.diogomurano.enchants.bukkit.inventory.PickaxeInventory;
 import xyz.diogomurano.enchants.bukkit.user.User;
-import xyz.diogomurano.enchants.bukkit.utils.BlockUtil;
+import dioray.datayy.util.BlockUtil;
 import xyz.diogomurano.enchants.custom.CustomEnchant;
 
 import java.util.Random;

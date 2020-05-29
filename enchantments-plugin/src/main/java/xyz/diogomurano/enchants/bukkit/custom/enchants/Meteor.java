@@ -1,7 +1,6 @@
 package xyz.diogomurano.enchants.bukkit.custom.enchants;
 
 import com.asylumdevs.mines.Mines;
-import com.asylumdevs.mines.mine.Mine;
 import dioray.datayy.model.Team;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
@@ -37,7 +36,7 @@ public final class Meteor extends AbstractCustomEnchant {
         Location location = center.getLocation();
         final Team team = getTeamPlayer(player).getTeam();
 
-        Mine originMine = Mines.getAPI().getByLocation(center.getLocation());
+        com.asylumdevs.mines.mine.Mine originMine = Mines.getAPI().getByLocation(center.getLocation());
 
         final CustomEnchant fortune = this.enchantService.get("Fortune");
 
@@ -70,6 +69,7 @@ public final class Meteor extends AbstractCustomEnchant {
 
     @Override
     public final List<String> getLore() {
-        return Arrays.asList("§7Make a big crater");
+        return Collections.singletonList("§7Make a big crater");
     }
+
 }
