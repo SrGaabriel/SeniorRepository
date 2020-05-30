@@ -5,6 +5,7 @@ import com.intellectualcrafters.plot.object.Plot;
 import com.raidplugin.api.prototype.Team;
 import com.raidplugin.api.repository.Repository;
 
+import java.util.List;
 import java.util.Map;
 
 public class TeamRepository implements Repository<String, Team> {
@@ -25,6 +26,11 @@ public class TeamRepository implements Repository<String, Team> {
     @Override
     public void put(String key, Team value) {
         teamMap.put(key, value);
+    }
+
+    @Override
+    public void putAll(List<Team> collection) {
+        collection.forEach(team -> teamMap.put(team.getName(), team));
     }
 
     @Override

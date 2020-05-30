@@ -28,6 +28,11 @@ public class WallManager implements Manager<Integer[], Wall> {
     }
 
     @Override
+    public void putAll(List<Wall> collection) {
+        wallList.addAll(collection);
+    }
+
+    @Override
     public void remove(Wall value) {
         wallList.remove(value);
     }

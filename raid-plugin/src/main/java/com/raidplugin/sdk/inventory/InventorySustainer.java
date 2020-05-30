@@ -46,7 +46,7 @@ public class InventorySustainer {
     }
 
     public void open(HumanEntity entity) {
-        Inventory inventory = Bukkit.createInventory(inventoryWrapper, menuSize.getSlot(), this.nameInventory);
+        Inventory inventory = Bukkit.createInventory(inventoryWrapper, menuSize.getSlot(), nameInventory);
 
         inventoryWrapper.setInventory(inventory);
 

@@ -28,6 +28,11 @@ public class RaidManager implements Manager<Team, Raid> {
     }
 
     @Override
+    public void putAll(List<Raid> collection) {
+        raidList.addAll(collection);
+    }
+
+    @Override
     public void remove(Raid value) {
         raidList.remove(value);
     }

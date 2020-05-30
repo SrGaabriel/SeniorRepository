@@ -5,6 +5,7 @@ import com.raidplugin.api.repository.Repository;
 import org.bukkit.entity.Player;
 
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -26,6 +27,11 @@ public class MemberRepository implements Repository<UUID, Member> {
     @Override
     public void put(UUID key, Member value) {
         memberMap.put(key, value);
+    }
+
+    @Override
+    public void putAll(List<Member> collection) {
+        collection.forEach(member -> memberMap.put(member.getUUID(), member));
     }
 
     @Override

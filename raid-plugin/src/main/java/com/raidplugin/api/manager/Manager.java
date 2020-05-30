@@ -8,6 +8,8 @@ public interface Manager<K, V> {
 
     void put(V value);
 
+    void putAll(List<V> collection);
+
     void remove(V value);
 
     V get(K key);

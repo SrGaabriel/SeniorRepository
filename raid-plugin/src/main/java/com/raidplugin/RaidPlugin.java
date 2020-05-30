@@ -39,12 +39,12 @@ public class RaidPlugin extends JavaPlugin {
 
         List<Team> teamList = jsonProvider.deserialize(List.class, archive);
 
+        teamRepository.putAll(teamList);
+
         teamList.forEach(team -> {
             team.getMembers().forEach(member -> memberRepository.put(member.getUUID(), member));
 
-            teamRepository.put(team.getName(), team);
-
-            wallManager.getCollection().addAll(team.getWalls());
+            wallManager.putAll(team.getWalls());
         });
     }
 
