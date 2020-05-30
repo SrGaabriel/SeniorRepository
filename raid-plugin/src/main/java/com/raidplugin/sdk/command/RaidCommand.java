@@ -22,7 +22,7 @@ import java.util.Collections;
 
 public class RaidCommand extends Command {
 
-    protected RaidCommand() {
+    public RaidCommand() {
         super("raid", "Your raid command.", "/raid", Collections.emptyList());
     }
 

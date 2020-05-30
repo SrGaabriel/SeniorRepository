@@ -1,7 +1,16 @@
 package com.raidplugin;
 
-import com.raidplugin.sdk.database.DatabaseProvider;
+import com.raidplugin.api.prototype.Team;
+import com.raidplugin.sdk.json.JSONProvider;
+import com.raidplugin.sdk.manager.WallManager;
+import com.raidplugin.sdk.repository.TeamRepository;
+import com.raidplugin.sdk.repository.member.MemberRepository;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Paths;
+import java.util.List;
 
 public class RaidPlugin extends JavaPlugin {
 
@@ -9,26 +18,44 @@ public class RaidPlugin extends JavaPlugin {
         return getPlugin(RaidPlugin.class);
     }
 
-    private DatabaseProvider databaseProvider;
+    private final File archive = Paths.get(getDataFolder() + "/database/database.json").toFile();
+
+    private final TeamRepository teamRepository = TeamRepository.getInstance();
+    private final JSONProvider jsonProvider = JSONProvider.getInstance();
+    private final MemberRepository memberRepository = MemberRepository.getInstance();
+    private final WallManager wallManager = WallManager.getInstance();
 
     @Override
     public void onLoad() {
-        databaseProvider = new DatabaseProvider();
+        if(!getDataFolder().exists()) getDataFolder().mkdirs();
 
-        databaseProvider.openConnection();
+        if(!archive.exists()) {
+            try {
+                archive.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } return;
+        }
+
+        List<Team> teamList = jsonProvider.deserialize(List.class, archive);
+
+        teamList.forEach(team -> {
+            team.getMembers().forEach(member -> memberRepository.put(member.getUUID(), member));
+
+            teamRepository.put(team.getName(), team);
+
+            wallManager.getCollection().addAll(team.getWalls());
+        });
     }
 
     @Override
     public void onEnable() {
-        super.onEnable();
+
     }
 
     @Override
     public void onDisable() {
-        super.onDisable();
+        jsonProvider.serialize(teamRepository.getMap().values(), archive, List.class);
     }
 
-    public DatabaseProvider getProvider() {
-        return databaseProvider;
-    }
 }
