@@ -1,6 +1,6 @@
 package com.raidplugin.api.prototype;
 
-import com.intellectualcrafters.plot.object.Plot;
+import com.plotsquared.core.plot.Plot;
 import com.raidplugin.api.prototype.member.Member;
 import com.raidplugin.api.prototype.wall.Wall;
 import org.bukkit.block.Block;

@@ -1,17 +1,24 @@
 package com.gabriel.senior.project.commands;
 
-import me.saiintbrisson.commands.Execution;
-import me.saiintbrisson.commands.annotations.Command;
-import me.saiintbrisson.commands.argument.Argument;
+import com.gabriel.senior.project.prototypes.Account;
+import com.gabriel.senior.project.repositories.impl.AccountRepository;
+import org.bukkit.command.CommandExecutor;
+import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 
-public class BackpackCommand implements CIndentifier {
+public class BackpackCommand implements CommandExecutor {
 
-    @Command(name = "backpack", permission = "enchantments.backpack", async = true)
-    public void onCommand(Execution executor, @Argument String[] args) {
-        if (executor.getPlayer() == null) {
-            return;
+    @Override
+    public boolean onCommand(CommandSender sender, org.bukkit.command.Command command, String label, String[] args) {
+        if (!(sender instanceof Player)) {
+            return false;
         }
-        executor.sendMessage("fodase?");
+        final Player player = (Player)sender;
+
+        final Account account = AccountRepository.getInstance().retrieve(player.getUniqueId());
+
+        player.openInventory(account.getBackpack().getInventory());
+        return false;
     }
 
 }

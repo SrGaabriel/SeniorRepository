@@ -35,7 +35,7 @@ public final class AccountRepository implements Repository {
     }
 
     @Override
-    public final Prototype retrieve(UUID uniqueId) {
+    public final Account retrieve(UUID uniqueId) {
         return repository.get(uniqueId);
     }
 

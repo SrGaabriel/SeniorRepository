@@ -3,9 +3,7 @@ package com.raidplugin.sdk.repository;
 import com.google.common.collect.Maps;
 import com.intellectualcrafters.plot.object.Plot;
 import com.raidplugin.api.prototype.Team;
-import com.raidplugin.api.prototype.member.Member;
 import com.raidplugin.api.repository.Repository;
-import org.bukkit.entity.Player;
 
 import java.util.Map;
 

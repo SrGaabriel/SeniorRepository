@@ -2,12 +2,12 @@ package com.gabriel.senior.project.utils;
 
 import com.gabriel.senior.project.SeniorEnchantments;
 import com.gabriel.senior.project.commands.BackpackCommand;
-import com.gabriel.senior.project.commands.CIndentifier;
 import com.gabriel.senior.project.enchantments.AbstractEnchantment;
 import com.gabriel.senior.project.enchantments.impl.Speed;
 import com.gabriel.senior.project.listeners.EnchantmentExecutorListener;
 import com.gabriel.senior.project.repositories.impl.EnchantmentRepository;
 import org.bukkit.Bukkit;
+import org.bukkit.command.CommandExecutor;
 import org.bukkit.event.Listener;
 import org.reflections.Reflections;
 
@@ -23,9 +23,10 @@ public class RegistrySession {
     private void registerCommands() {
         final Reflections reflections = new Reflections(BackpackCommand.class.getPackage());
 
-        for (Class<?> clazz : reflections.getSubTypesOf(CIndentifier.class)) {
+        for (Class<?> clazz : reflections.getSubTypesOf(CommandExecutor.class)) {
             try {
-                SeniorEnchantments.getInstance().getFrame().register(clazz.newInstance());
+                CommandExecutor instance = (CommandExecutor) clazz.newInstance();
+                SeniorEnchantments.getInstance().getCommand(instance.toString()).setExecutor(instance);
             } catch (InstantiationException | IllegalAccessException e) {
                 e.printStackTrace();
             }
