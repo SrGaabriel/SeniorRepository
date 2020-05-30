@@ -76,16 +76,16 @@ public class RaidCommand extends Command {
                 sender.sendMessage(new String[] {
                         " ",
                         " §e/raid promote <target> - Promote the target!",
-                        " §e/raid leave - Leave of your team.",
-                        " §e/raid kick <target> - Kick the target of your team.",
-                        " §e/raid home -  Teleport to home of your team.",
+                        " §e/raid leave - Leave your team.",
+                        " §e/raid kick <target> - Kick a target from your team",
+                        " §e/raid home -  Teleport to your team's home",
                         " §e/raid search <target> - See info about of the target.",
                         " §e/raid accept <target> - Accept the invite from target.",
                         " §e/raid deny <target> - Deny the invite from target.",
                         " §e/raid top - See info about the top teams of server.",
                         " §e/raid balance - See the balance of your team.",
                         " §e/raid increase - Increase your raid level!",
-                        " §e/raid invite <target> - Create a invite to target.",
+                        " §e/raid invite <target> - Create an invite to target.",
                         " "
                 }); return true;
             } if(!(sender instanceof Player)) return false;
