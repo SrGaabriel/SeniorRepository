@@ -6,8 +6,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.inventory.ItemStack;
 
-import java.util.UUID;
-
 public abstract class AbstractEnchantment extends Enchantment implements Prototype {
 
     private final Class<? extends Event> expectancy;
@@ -51,7 +49,7 @@ public abstract class AbstractEnchantment extends Enchantment implements Prototy
 
     @Override
     public final boolean canEnchantItem(ItemStack item) {
-        return false;
+        return getItemTarget().includes(item);
     }
 
     public Class<? extends Event> getExpectancy() {

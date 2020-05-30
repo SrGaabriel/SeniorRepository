@@ -19,7 +19,7 @@ public class Speed extends AbstractEnchantment {
         if (!tool.getItemMeta().hasEnchant(this)) {
             return;
         }
-        player.setWalkSpeed(tool.getEnchantmentLevel(this) * 0.2F);
+        player.setWalkSpeed(tool.getEnchantmentLevel(this) * 0.02F);
     }
 
     @Override
