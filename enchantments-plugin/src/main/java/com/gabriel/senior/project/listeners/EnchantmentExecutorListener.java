@@ -11,12 +11,25 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.player.PlayerEvent;
+import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerMoveEvent;
 
 public class EnchantmentExecutorListener implements Listener {
 
     @EventHandler
-    public void onPlayerEvent(PlayerEvent event) {
+    public void onPlayerInteract(PlayerInteractEvent event) {
+        runEnchantment(event.getPlayer(), event);
+    }
+
+    @EventHandler
+    public void onPlayerJoin(PlayerJoinEvent event) {
         AccountRepository.getInstance().reveal().putIfAbsent(event.getPlayer().getUniqueId(), new Account(event.getPlayer().getUniqueId()));
+        runEnchantment(event.getPlayer(), event);
+    }
+
+    @EventHandler
+    public void onPlayerMove(PlayerMoveEvent event) {
         runEnchantment(event.getPlayer(), event);
     }
 
@@ -35,6 +48,9 @@ public class EnchantmentExecutorListener implements Listener {
         for (AbstractEnchantment enchantment : EnchantmentRepository.getInstance().reveal().values()) {
             if (event.getClass() != enchantment.getExpectancy()) {
                 continue;
+            }
+            if (player.getInventory().getItemInMainHand() == null || !player.getInventory().getItemInMainHand().hasItemMeta()) {
+                return;
             }
             if (!player.getInventory().getItemInMainHand().getItemMeta().hasEnchant(enchantment)) {
                 continue;

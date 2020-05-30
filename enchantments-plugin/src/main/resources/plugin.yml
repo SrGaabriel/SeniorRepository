@@ -1,0 +1,5 @@
+name: EnchantmentsPlugin
+main: com.gabriel.senior.project.SeniorEnchantments
+version: 1.0
+commands:
+  backpack:
