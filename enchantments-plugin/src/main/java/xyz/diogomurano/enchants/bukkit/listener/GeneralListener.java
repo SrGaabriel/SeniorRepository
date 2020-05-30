@@ -1,6 +1,5 @@
 package xyz.diogomurano.enchants.bukkit.listener;
 
-import dioray.datayy.util.BlockUtil;
 import me.clip.autosell.events.SellAllEvent;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -25,6 +24,7 @@ import xyz.diogomurano.enchants.bukkit.inventory.PickaxeInventory;
 import xyz.diogomurano.enchants.bukkit.user.User;
 import xyz.diogomurano.enchants.custom.CustomEnchant;
 
+import java.util.Collection;
 import java.util.Random;
 
 public class GeneralListener implements Listener {
@@ -41,8 +41,6 @@ public class GeneralListener implements Listener {
         final Player player = event.getPlayer();
 
         Block block = event.getBlock();
-
-        if (!BlockUtil.canBeBroken(block)) return;
 
         if (block.getWorld().getName().equalsIgnoreCase("raids") && block.getType() != Material.OBSIDIAN) return;
 
@@ -63,20 +61,20 @@ public class GeneralListener implements Listener {
             if (level > 0) {
                 customEnchant.run(player, block, level);
             }
-        }
 
-        final ItemStack drop = BlockUtil.getItem(block);
-
-        final CustomEnchant fortune = plugin.getEnchantService().get("Fortune");
-        if (fortune != null && fortune.hasEnchantment(hand)) {
-            int level = fortune.getEnchantmentLevel(hand);
-            drop.setAmount((random.nextInt(level) + 1) / 2);
         }
+        block.getDrops(hand).forEach(drop -> {
+            final CustomEnchant fortune = plugin.getEnchantService().get("Fortune");
+            if (fortune != null && fortune.hasEnchantment(hand)) {
+                int level = fortune.getEnchantmentLevel(hand);
+                drop.setAmount((random.nextInt(level) + 1) / 2);
+            }
 
-        if (block.getType() != Material.OBSIDIAN) {
-            event.setDropItems(false);
-            User.addItem(player, drop);
-        }
+            if (block.getType() != Material.OBSIDIAN) {
+                event.setDropItems(false);
+                User.addItem(player, drop);
+            }
+        });
 
         User.handleCounter(player, hand, true);
     }

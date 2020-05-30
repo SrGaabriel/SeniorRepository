@@ -75,10 +75,9 @@ public final class CustomEnchantCommand implements CommandExecutor, TabExecutor 
             return true;
         }
 
-        ItemStack hand = player.getInventory().getItemInMainHand();
+        final ItemStack hand = player.getInventory().getItemInMainHand();
         if (!hand.getType().name().contains("PICKAXE")) {
             player.sendMessage(ChatColor.RED + "You can only enchant pickaxes");
-
             return true;
         }
 

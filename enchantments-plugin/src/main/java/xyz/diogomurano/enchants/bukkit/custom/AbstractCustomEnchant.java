@@ -2,18 +2,15 @@ package xyz.diogomurano.enchants.bukkit.custom;
 
 import com.asylumdevs.mines.Mines;
 import com.asylumdevs.mines.mine.Mine;
-import dioray.datayy.RaidPlugin;
-import dioray.datayy.database.TeamDao;
-import dioray.datayy.model.PlotWall;
-import dioray.datayy.model.Team;
-import dioray.datayy.model.TeamPlayer;
-import dioray.datayy.service.PlotWallService;
-import dioray.datayy.service.TeamPlayerService;
-import dioray.datayy.service.TeamService;
-import dioray.datayy.util.BlockUtil;
+import dioray.datayy.prototype.Team;
+import dioray.datayy.prototype.player.TeamPlayer;
+import dioray.datayy.prototype.wall.PlotWall;
+import dioray.datayy.provider.wall.WallProvider;
+import dioray.datayy.repository.team.TeamRepository;
 import lombok.Data;
 import lombok.NonNull;
 import me.clip.ezblocks.EZBlocks;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -23,11 +20,15 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import util.BlockUtil;
 import xyz.diogomurano.enchants.bukkit.BukkitEnchantmentPlugin;
+import xyz.diogomurano.enchants.bukkit.custom.enchants.Jesus;
+import xyz.diogomurano.enchants.bukkit.events.TeamThousandBlocksBrokenEvent;
 import xyz.diogomurano.enchants.bukkit.user.User;
 import xyz.diogomurano.enchants.custom.CustomEnchant;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.ThreadLocalRandom;
@@ -41,9 +42,8 @@ public abstract class AbstractCustomEnchant implements CustomEnchant {
     private int blockSet;
     private float chance;
 
-    private final PlotWallService plotWallService;
-    private final TeamService teamService;
-    private final TeamPlayerService teamPlayerService;
+    private final TeamRepository teamService = TeamRepository.getInstance();
+    private final WallProvider wallProvider = WallProvider.getInstance();
 
     public AbstractCustomEnchant(@NonNull final UUID uniqueId, final String name) {
         this.uniqueId = uniqueId;
@@ -55,10 +55,6 @@ public abstract class AbstractCustomEnchant implements CustomEnchant {
         this.blockSet = BukkitEnchantmentPlugin.getSettings().getEnchantsConfiguration().getInt("enchants." + name + ".block-set");
         this.maxLevel = BukkitEnchantmentPlugin.getSettings().getEnchantsConfiguration().getInt("enchants." + name + ".max-level");
         this.chance = ((float) BukkitEnchantmentPlugin.getSettings().getEnchantsConfiguration().getDouble("enchants." + name + ".chance") / 100);
-
-        this.plotWallService = RaidPlugin.getInstance().getService(PlotWallService.class);
-        this.teamService = RaidPlugin.getInstance().getService(TeamService.class);
-        this.teamPlayerService = RaidPlugin.getInstance().getService(TeamPlayerService.class);
     }
 
     @Override
@@ -131,59 +127,87 @@ public abstract class AbstractCustomEnchant implements CustomEnchant {
     }
 
     public TeamPlayer getTeamPlayer(final Player player) {
-        return teamPlayerService.getTeamPlayerByPlayer(player);
+        return teamService.get(player);
+    }
+
+    public Jesus.Direction getDirection(final Player player) {
+        if (player.getLocation().getPitch() == 90) {
+            return Direction.HIGH;
+        }
+
+        double rotation = (player.getLocation().getYaw() - 90) % 360;
+
+        if (rotation < 0) {
+            rotation += 360.0;
+        }
+
+        if (0 <= rotation && rotation < 22.5) {
+            return Direction.NORTH;
+        } else if (22.5 <= rotation && rotation < 67.5) {
+            return Direction.NORTH;
+        } else if (67.5 <= rotation && rotation < 112.5) {
+            return Direction.EAST;
+        } else if (112.5 <= rotation && rotation < 157.5) {
+            return Direction.SOUTH;
+        } else if (157.5 <= rotation && rotation < 202.5) {
+            return Direction.SOUTH;
+        } else if (202.5 <= rotation && rotation < 247.5) {
+            return Direction.SOUTH;
+        } else if (247.5 <= rotation && rotation < 292.5) {
+            return Direction.WEST;
+        } else if (292.5 <= rotation && rotation < 337.5) {
+            return Direction.NORTH;
+        } else if (337.5 <= rotation && rotation < 360.0) {
+            return Direction.NORTH;
+        }
+
+        return null;
     }
 
     public boolean handleDestroy(final Player player, final Location location, final int level) {
         if (location.getBlock().getType() != Material.OBSIDIAN) return false;
 
-        PlotWall plotWall = plotWallService.getPlotWall(location);
+        PlotWall plotWall = teamService.get(location);
         if (plotWall == null) return false;
 
-        Team plotTeam = teamService.getByPlot(plotWall.getPlot());
+        Team plotTeam = teamService.get(plotWall.getPlot());
         if (plotTeam == null) return false;
 
-        return plotWallService.handlePlotWallBreak(plotTeam, player, plotWall, 2);
+        wallProvider.hasDamaged(player, location.getBlock(), 2);
+        return true;
     }
 
     public FileConfiguration getConfiguration() {
         return BukkitEnchantmentPlugin.getSettings().getEnchantsConfiguration();
     }
 
-    public TeamDao getTeamDao() {
-        return RaidPlugin.getInstance().getTeamDao();
-    }
-
     public float calculateChance(float level) {
         return this.chance * (level / this.maxLevel);
     }
 
-    public void handleBlockBreak(Player player, Block block, int level, CustomEnchant fortune, Team team, Mine originMine) {
+    public void handleBlockBreak(final Player player, final Block block, final int level, final CustomEnchant fortune, final Team team, final Mine originMine) {
         if (block.getType() == Material.AIR) return;
 
         if (handleDestroy(player, block.getLocation(), level)) return;
 
-        if (!BlockUtil.canBeBroken(block)) return;
-
-        Mine mine = Mines.getAPI().getByLocation(block.getLocation());
+        final Mine mine = Mines.getAPI().getByLocation(block.getLocation());
         if (mine == null || !mine.getName().equals(originMine.getName())) return;
 
-        ItemStack hand = player.getInventory().getItemInMainHand();
+        final ItemStack hand = player.getInventory().getItemInMainHand();
 
         if (hand == null || !hand.getType().name().contains("PICKAXE")) return;
 
         EZBlocks.getEZBlocks().getBreakHandler().handleBlockBreakEvent(player, block);
         block.setType(Material.AIR);
 
-        ItemStack drop = BlockUtil.getItem(block);
+        block.getDrops(hand).forEach(drop -> {
+            if (fortune.hasEnchantment(hand)) {
+                drop.setAmount((ThreadLocalRandom.current().nextInt(fortune.getEnchantmentLevel(hand)) + 1) / 2);
 
-        if (fortune.hasEnchantment(hand)) {
-            int fortuneLevel = fortune.getEnchantmentLevel(hand);
+            }
+            User.addItem(player, drop);
+        });
 
-            drop.setAmount((ThreadLocalRandom.current().nextInt(fortuneLevel) + 1) / 2);
-        }
-
-        User.addItem(player, drop);
 
         User.handleCounter(player, hand, true);
 
@@ -193,7 +217,7 @@ public abstract class AbstractCustomEnchant implements CustomEnchant {
         }
 
         if (team != null) {
-            team.checkBlockBreak();
+            apply(team);
         }
     }
 
@@ -208,4 +232,13 @@ public abstract class AbstractCustomEnchant implements CustomEnchant {
         this.maxLevel = BukkitEnchantmentPlugin.getSettings().getEnchantsConfiguration().getInt("enchants." + name + ".max-level");
         this.chance = ((float) BukkitEnchantmentPlugin.getSettings().getEnchantsConfiguration().getDouble("enchants." + name + ".chance") / 100);
     }
+
+    public void apply(Team team) {
+        team.setValue(team.getValue() + 1); if(team.getValue() >= 1000) Bukkit.getPluginManager().callEvent(new TeamThousandBlocksBrokenEvent(team));
+    }
+
+    public enum Direction {
+        SOUTH, EAST, WEST, NORTH, HIGH
+    }
+
 }

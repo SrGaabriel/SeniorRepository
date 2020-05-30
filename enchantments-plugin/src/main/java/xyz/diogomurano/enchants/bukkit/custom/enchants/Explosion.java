@@ -1,18 +1,15 @@
 package xyz.diogomurano.enchants.bukkit.custom.enchants;
 
 import com.asylumdevs.mines.Mines;
-import com.asylumdevs.mines.mine.Mine;
-import dioray.datayy.model.Team;
+import dioray.datayy.prototype.Team;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.block.BlockExplodeEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
-import org.bukkit.inventory.ItemStack;
 import xyz.diogomurano.enchants.bukkit.BukkitEnchantmentPlugin;
 import xyz.diogomurano.enchants.bukkit.custom.AbstractCustomEnchant;
-import xyz.diogomurano.enchants.custom.CustomEnchant;
 import xyz.diogomurano.enchants.custom.CustomEnchantService;
 
 import java.util.*;
@@ -56,9 +53,6 @@ public final class Explosion extends AbstractCustomEnchant {
                 handleBlockBreak(player, block, level, enchantService.get("Fortune"), team, Mines.getAPI().getByLocation(event.getBlock().getLocation()));
             }
 
-            if (team != null) {
-                getTeamDao().update(team);
-            }
         }
     }
 

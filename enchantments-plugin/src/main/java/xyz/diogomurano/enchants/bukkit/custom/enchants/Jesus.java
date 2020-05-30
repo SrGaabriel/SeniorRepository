@@ -2,7 +2,7 @@ package xyz.diogomurano.enchants.bukkit.custom.enchants;
 
 import com.asylumdevs.mines.Mines;
 import com.asylumdevs.mines.mine.Mine;
-import dioray.datayy.model.Team;
+import dioray.datayy.prototype.Team;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
@@ -47,7 +47,7 @@ public final class Jesus extends AbstractCustomEnchant {
             }
 
             if (team != null) {
-                getTeamDao().update(team);
+                getTeamService().put(team.getPrefix(), team);
             }
         }
     }
@@ -85,43 +85,5 @@ public final class Jesus extends AbstractCustomEnchant {
     @Override
     public final List<String> getLore() {
         return Collections.singletonList("§7Cross-shaped break");
-    }
-
-    private Direction getDirection(final Player player) {
-        if (player.getLocation().getPitch() == 90) {
-            return Direction.HIGH;
-        }
-
-        double rotation = (player.getLocation().getYaw() - 90) % 360;
-
-        if (rotation < 0) {
-            rotation += 360.0;
-        }
-
-        if (0 <= rotation && rotation < 22.5) {
-            return Direction.NORTH;
-        } else if (22.5 <= rotation && rotation < 67.5) {
-            return Direction.NORTH;
-        } else if (67.5 <= rotation && rotation < 112.5) {
-            return Direction.EAST;
-        } else if (112.5 <= rotation && rotation < 157.5) {
-            return Direction.SOUTH;
-        } else if (157.5 <= rotation && rotation < 202.5) {
-            return Direction.SOUTH;
-        } else if (202.5 <= rotation && rotation < 247.5) {
-            return Direction.SOUTH;
-        } else if (247.5 <= rotation && rotation < 292.5) {
-            return Direction.WEST;
-        } else if (292.5 <= rotation && rotation < 337.5) {
-            return Direction.NORTH;
-        } else if (337.5 <= rotation && rotation < 360.0) {
-            return Direction.NORTH;
-        }
-
-        return null;
-    }
-
-    private enum Direction {
-        SOUTH, EAST, WEST, NORTH, HIGH
     }
 }

@@ -2,8 +2,7 @@ package xyz.diogomurano.enchants.bukkit.custom.enchants;
 
 import com.asylumdevs.mines.Mines;
 import com.asylumdevs.mines.mine.Mine;
-import dioray.datayy.model.Team;
-import dioray.datayy.util.BlockUtil;
+import dioray.datayy.prototype.Team;
 import me.clip.ezblocks.EZBlocks;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -11,6 +10,7 @@ import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
+import util.BlockUtil;
 import xyz.diogomurano.enchants.bukkit.BukkitEnchantmentPlugin;
 import xyz.diogomurano.enchants.bukkit.custom.AbstractCustomEnchant;
 import xyz.diogomurano.enchants.bukkit.user.User;
@@ -70,25 +70,21 @@ public final class Demolisher extends AbstractCustomEnchant {
 
                             if (handleDestroy(player, blockLocation, level)) continue;
 
-                            if (!BlockUtil.canBeBroken(block)) continue;
-
                             Mine mine = Mines.getAPI().getByLocation(blockLocation);
                             if (mine == null || !mine.getName().equals(originMine.getName())) continue;
 
                             brokenBlocks++;
 
-                            ItemStack drop = BlockUtil.getItem(block);
-
                             EZBlocks.getEZBlocks().getBreakHandler().handleBlockBreakEvent(player, block);
                             block.setType(Material.AIR);
 
-                            if (fortune.hasEnchantment(hand)) {
-                                int fortuneLevel = fortune.getEnchantmentLevel(hand);
-
-                                drop.setAmount((ThreadLocalRandom.current().nextInt(fortuneLevel) + 1) / 2);
-                            }
-
-                            User.addItem(player, drop);
+                            ItemStack finalHand = hand;
+                            block.getDrops(hand).forEach(drop -> {
+                                if (fortune.hasEnchantment(finalHand)) {
+                                    drop.setAmount((ThreadLocalRandom.current().nextInt(fortune.getEnchantmentLevel(finalHand)) + 1) / 2);
+                                }
+                                User.addItem(player, drop);
+                            });
 
                             final ItemStack newHand = User.handleCounter(player, hand, false);
 
@@ -102,7 +98,7 @@ public final class Demolisher extends AbstractCustomEnchant {
                             }
 
                             if (team != null) {
-                                team.checkBlockBreak();
+                                team.setValue(team.getValue() + 1);
                             }
                         }
                     }
@@ -118,7 +114,7 @@ public final class Demolisher extends AbstractCustomEnchant {
                         cancel();
 
                         if (team != null) {
-                            getTeamDao().update(team);
+                            getTeamService().put(team.getPrefix(), team);
                         }
                     }
                 }
@@ -130,4 +126,5 @@ public final class Demolisher extends AbstractCustomEnchant {
     public List<String> getLore() {
         return Arrays.asList("§7Breaks an entire layer of", "§7the mine");
     }
+
 }
