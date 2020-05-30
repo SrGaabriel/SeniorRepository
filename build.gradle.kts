@@ -25,13 +25,9 @@ allprojects {
     }
 
     dependencies {
-        compileOnly("org.bukkit:craftbukkit:1.12.2-R0.1-SNAPSHOT")
         compileOnly("com.destroystokyo.paper:paper-api:1.12.2-R0.1-SNAPSHOT")
 
         compileOnly(fileTree("dependencies"))
-        compileOnly("org.reflections:reflections:0.9.10")
-        compileOnly("com.plotsquared:PlotSquared:5.11.1")
-        compileOnly("me.clip:placeholderapi:2.10.6")
     }
 }
 
