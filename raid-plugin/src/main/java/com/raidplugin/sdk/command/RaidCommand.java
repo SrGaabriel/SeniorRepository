@@ -93,13 +93,14 @@ public class RaidCommand extends Command {
             Player player = (Player) sender;
 
             Member member = toMember(player); if(member == null) return false;
+            Team team = member.getTeam();
 
             if(args[0].equalsIgnoreCase("leave")) {
-                new MemberLeaveTeamEvent(member, member.getTeam()); return true;
+                new MemberLeaveTeamEvent(member, team); return true;
             }
 
             if(args[0].equalsIgnoreCase("home")) {
-                new MemberTeleportHomeEvent(member, member.getTeam()); return true;
+                new MemberTeleportHomeEvent(member, team); return true;
             }
 
             if(args[0].equalsIgnoreCase("top")) {
@@ -107,13 +108,13 @@ public class RaidCommand extends Command {
             }
 
             if(args[0].equalsIgnoreCase("balance")) {
-                sender.sendMessage(" §eYour team balance is: §f$" + member.getTeam().getPower() + "§e!"); return true;
+                sender.sendMessage(" §eYour team balance is: §f$" + team.getPower() + "§e!"); return true;
             }
 
             if(args[0].equalsIgnoreCase("increase")) {
                 if(!teamProvider.isPossible(member.getTeam())) {
                     sender.sendMessage("§cYour team not have the need power to deploy a new level!"); return false;
-                } new TeamIncreaseLevelEvent(member.getTeam(), teamProvider.getNeed(member.getTeam()), member.getTeam().getLevel() + 1); return true;
+                } new TeamIncreaseLevelEvent(team, teamProvider.getNeed(team), team.getLevel() + 1); return true;
             }
         }
 

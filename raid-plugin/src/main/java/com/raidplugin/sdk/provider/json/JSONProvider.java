@@ -1,4 +1,4 @@
-package com.raidplugin.sdk.json;
+package com.raidplugin.sdk.provider.json;
 
 import com.google.common.io.Files;
 import com.google.gson.Gson;

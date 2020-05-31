@@ -1,7 +1,7 @@
 package com.raidplugin;
 
 import com.raidplugin.api.prototype.Team;
-import com.raidplugin.sdk.json.JSONProvider;
+import com.raidplugin.sdk.provider.json.JSONProvider;
 import com.raidplugin.sdk.manager.WallManager;
 import com.raidplugin.sdk.repository.TeamRepository;
 import com.raidplugin.sdk.repository.member.MemberRepository;
