@@ -12,16 +12,22 @@ public class WMember implements Member {
 
     private final Team team;
     private final UUID uuid;
+    private final String name;
 
     private Role role;
 
     public WMember(Player player, Team team, Role role) {
-        this.team = team; this.uuid = player.getUniqueId(); this.role = role;
+        this.team = team; this.uuid = player.getUniqueId(); this.role = role; this.name = player.getName();
     }
 
     @Override
     public Team getTeam() {
         return team;
+    }
+
+    @Override
+    public String getName() {
+        return name;
     }
 
     @Override

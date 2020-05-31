@@ -1,5 +1,6 @@
 package com.raidplugin.sdk.repository.member;
 
+import com.raidplugin.api.prototype.Team;
 import com.raidplugin.api.prototype.member.Member;
 import com.raidplugin.api.repository.Repository;
 import org.bukkit.entity.Player;
@@ -43,6 +44,13 @@ public class MemberRepository implements Repository<UUID, Member> {
     public Member get(UUID key) {
         for(Member member : memberMap.values()) {
             if(isSamePlayer(member, key)) return member;
+        } return null;
+    }
+
+    public Member get(String name, Team team) {
+        for(Member member : memberMap.values()) {
+            if(member.getName().equalsIgnoreCase(name) &&
+                    member.getTeam().getName().equals(team.getName())) return member;
         } return null;
     }
 

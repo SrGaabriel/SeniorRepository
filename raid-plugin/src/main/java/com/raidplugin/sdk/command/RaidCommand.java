@@ -4,10 +4,9 @@ import com.intellectualcrafters.plot.api.PlotAPI;
 import com.intellectualcrafters.plot.object.Plot;
 import com.raidplugin.api.prototype.Team;
 import com.raidplugin.api.prototype.member.Member;
-import com.raidplugin.sdk.event.MemberLeaveTeamEvent;
-import com.raidplugin.sdk.event.MemberTeleportHomeEvent;
-import com.raidplugin.sdk.event.TeamIncreaseLevelEvent;
-import com.raidplugin.sdk.event.TeamWasDeletedEvent;
+import com.raidplugin.api.prototype.type.Role;
+import com.raidplugin.sdk.event.*;
+import com.raidplugin.sdk.prototype.factory.PrototypeFactory;
 import com.raidplugin.sdk.provider.TeamProvider;
 import com.raidplugin.sdk.repository.TeamRepository;
 import com.raidplugin.sdk.repository.member.MemberRepository;
@@ -29,6 +28,7 @@ public class RaidCommand extends Command {
     private final TeamProvider teamProvider = new TeamProvider();
     private final MemberRepository memberRepository = MemberRepository.getInstance();
     private final TeamRepository teamRepository = TeamRepository.getInstance();
+    private final PrototypeFactory prototypeFactory = PrototypeFactory.getInstance();
     private final PlotAPI plotAPI = new PlotAPI();
 
     @Override
@@ -92,15 +92,15 @@ public class RaidCommand extends Command {
 
             Player player = (Player) sender;
 
-            Member member = toMember(player); if(member == null) return false;
-            Team team = member.getTeam();
+            Member author = toAuthor(sender);
+            Team team = author.getTeam();
 
             if(args[0].equalsIgnoreCase("leave")) {
-                new MemberLeaveTeamEvent(member, team); return true;
+                new MemberLeaveTeamEvent(author, team); return true;
             }
 
             if(args[0].equalsIgnoreCase("home")) {
-                new MemberTeleportHomeEvent(member, team); return true;
+                new MemberTeleportHomeEvent(author, team); return true;
             }
 
             if(args[0].equalsIgnoreCase("top")) {
@@ -112,7 +112,7 @@ public class RaidCommand extends Command {
             }
 
             if(args[0].equalsIgnoreCase("increase")) {
-                if(!teamProvider.isPossible(member.getTeam())) {
+                if(!teamProvider.isPossible(author.getTeam())) {
                     sender.sendMessage("§cYour team not have the need power to deploy a new level!"); return false;
                 } new TeamIncreaseLevelEvent(team, teamProvider.getNeed(team), team.getLevel() + 1); return true;
             }
@@ -138,10 +138,72 @@ public class RaidCommand extends Command {
                 sender.sendMessage("§cSuccess! The team power was updated!"); return true;
             }
 
+            if(args[0].equalsIgnoreCase("create")) {
+                if(!(sender instanceof Player)) return false;
+
+                Player player = (Player) sender;
+                Team target = teamRepository.get(args[1]);
+
+                if(target != null) {
+                    sender.sendMessage("§cHey! That team exist!"); return false;
+                } Plot plot = plotAPI.getPlot(player.getLocation());
+
+                if(plot == null) {
+                    sender.sendMessage("§cYou need are on a plot!"); return false;
+                } prototypeFactory.createTeam(args[1], plot, player);
+
+                sender.sendMessage("§aSuccess! You are on a team, invite others through of /raid invite <target>!"); return true;
+            }
+
+            if(args[0].equalsIgnoreCase("kick")) {
+                Member author = toAuthor(sender); if(author == null) return false;
+
+                if(author.getRole() == Role.MEMBER) {
+                    sender.sendMessage("§cYou don't have permission to this!"); return false;
+                } Member target = memberRepository.get(args[1], author.getTeam());
+
+                if(target == null) {
+                    sender.sendMessage("§cThat member don't exist in your team!"); return false;
+                } new TeamKickMemberEvent(author.getTeam(), target);
+
+                sender.sendMessage("§aSuccess! That member was kicked!"); return true;
+            }
+
+            if(args[0].equalsIgnoreCase("promote")) {
+                Member author = toAuthor(sender); if(author == null) return false;
+
+                Member target = memberRepository.get(args[1], author.getTeam());
+
+                if(target == null) {
+                    sender.sendMessage("§cThat member don't exists in your team."); return false;
+                }
+
+                if(target.getRole() == Role.MOD || target.getRole() == Role.OWNER) {
+                    sender.sendMessage("§cThat member are Administrator!"); return false;
+                } new TeamPromoteMemberEvent(author.getTeam(), target);
+
+                sender.sendMessage("§aSuccess! The member was promoted!"); return true;
+            }
+
             Team team = teamRepository.get(args[1]);
 
             if(team == null) {
-                sender.sendMessage("§cThat's is a not team!"); return false;
+                sender.sendMessage("§cThat's a not team!"); return false;
+            }
+
+            if(args[0].equalsIgnoreCase("search")) {
+                sender.sendMessage(new String[] {
+                        " ",
+                        "  §b" + team.getName(),
+                        "  §eMembers: §f" + team.getMembers().size(),
+                        "  §eLevel: §f" + team.getLevel(),
+                        "  §ePower: §f" + team.getPower(),
+                        " "
+                }); return true;
+            }
+
+            if(!sender.hasPermission("raid.admin")) {
+                sender.sendMessage("§cKeep calm, you don't have permission to use this."); return false;
             }
 
             if(args[0].equalsIgnoreCase("delete")) {
@@ -154,20 +216,23 @@ public class RaidCommand extends Command {
         } sender.sendMessage("§cHey! Your command are wronged usage!"); return false;
     }
 
-    public Member toMember(Player player) {
-        Member member = memberRepository.get(player);
-
-        if(member == null) {
-            player.sendMessage("§cYou not have permission to use the command."); return null;
-        } return member;
-    }
-
     public Team toTeam(Player player) {
         Location location = player.getLocation();
 
         Plot plot = plotAPI.getPlot(location); if(plot == null) return null;
 
         return teamRepository.get(plot);
+    }
+
+    public Member toAuthor(CommandSender commandSender) {
+        if(!(commandSender instanceof Player)) return null;
+
+        Player player = (Player) commandSender;
+        Member member = memberRepository.get(player);
+
+        if(member == null) {
+            commandSender.sendMessage("§cYou need of a team to use this!"); return null;
+        } return member;
     }
 
     public Location toLocation(Team team) {

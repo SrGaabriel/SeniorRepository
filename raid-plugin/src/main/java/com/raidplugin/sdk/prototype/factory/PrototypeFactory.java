@@ -43,7 +43,8 @@ public class PrototypeFactory {
         block.setType(Material.DRAGON_EGG);
 
         Team team = new WTeam(name, configuration.get(Integer.class, "team-minium-health"), 0, 1, plot, block);
-        Member member = createMember(owner, Role.OWNER, team);
+
+        createMember(owner, Role.OWNER, team);
 
         teamRepository.put(name, team);
 
