@@ -10,6 +10,8 @@ public interface Member {
 
     Team getTeam();
 
+    String getName();
+
     UUID getUUID();
 
     Role getRole();
