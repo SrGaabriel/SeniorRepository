@@ -1,6 +1,8 @@
 package com.gabriel.senior.project.prototypes;
 
+import com.gabriel.senior.project.utils.ItemBuilder;
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.inventory.Inventory;
 
 import java.util.*;
@@ -44,6 +46,12 @@ public class Backpack implements Prototype {
     }
 
     public Inventory getInventory() {
+        inventory.setItem(13, new ItemBuilder(Material.SKULL_ITEM)
+                .name("§b§lMINING BACKPACK")
+                .skullOwner("MHF_Chest")
+                .lore("", "§fUpgrade your backpack to gain more money while mining", "", "§fCurrent Level: §c" + this.level, "§fAmount: §b0.0", "§fCount: §c0/2000000")
+                .build()
+        );
         return inventory;
     }
 
