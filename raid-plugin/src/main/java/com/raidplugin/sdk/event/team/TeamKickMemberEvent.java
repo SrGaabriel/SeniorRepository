@@ -5,6 +5,11 @@ import com.raidplugin.api.prototype.member.Member;
 import com.raidplugin.sdk.event.wrapper.EventWrapper;
 import org.bukkit.Bukkit;
 
+/**
+ * This is an event to call on member was kicked.
+ * You can cancel this on setCancelled.
+ */
+
 public class TeamKickMemberEvent extends EventWrapper {
 
     private final Team team;

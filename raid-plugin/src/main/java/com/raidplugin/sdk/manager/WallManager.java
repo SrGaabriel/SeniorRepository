@@ -9,6 +9,13 @@ import java.util.List;
 
 public class WallManager implements Manager<Integer[], Wall> {
 
+    /**
+     * That's a manager to change/add plot walls.
+     * You can get walls with:
+     *  Vector;
+     *  Block.
+     */
+
     private static WallManager wallManager;
 
     public static WallManager getInstance() {

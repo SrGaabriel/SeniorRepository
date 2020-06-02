@@ -3,6 +3,13 @@ package com.raidplugin.api.repository;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * That's a repository to manage values.
+ *
+ * @param <K> - It's a key to get V.
+ * @param <V> - It's a value from K.
+ */
+
 public interface Repository<K, V> {
 
     Map<K, V> getMap();

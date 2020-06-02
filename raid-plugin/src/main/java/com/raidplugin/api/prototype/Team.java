@@ -7,6 +7,12 @@ import org.bukkit.block.Block;
 
 import java.util.List;
 
+/**
+ * That's Team or the core of all.
+ * You can manage all team's values!
+ * But, ever verify the same in repositories/managers.
+ */
+
 public interface Team {
 
     String getName();

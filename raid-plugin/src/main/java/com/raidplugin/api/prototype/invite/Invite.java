@@ -5,6 +5,11 @@ import org.bukkit.entity.Player;
 
 import java.util.UUID;
 
+/**
+ * That's invite. Invite is invite.
+ * But, you can't manage the values, only in events can.
+ */
+
 public interface Invite {
 
     Team getTarget();

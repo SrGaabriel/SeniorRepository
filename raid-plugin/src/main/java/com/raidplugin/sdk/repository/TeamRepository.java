@@ -10,6 +10,13 @@ import java.util.Map;
 
 public class TeamRepository implements Repository<String, Team> {
 
+    /**
+     * That's a repository to teams.
+     * You can get team with:
+     *  Names;
+     *  Plot.
+     */
+
     private static TeamRepository teamRepository;
 
     public static TeamRepository getInstance() {

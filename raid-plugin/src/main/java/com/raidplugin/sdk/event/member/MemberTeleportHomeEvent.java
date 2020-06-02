@@ -5,6 +5,11 @@ import com.raidplugin.api.prototype.member.Member;
 import com.raidplugin.sdk.event.wrapper.EventWrapper;
 import org.bukkit.Bukkit;
 
+/**
+ * This is an event to call on member want teleport to team's home.
+ * You can cancel this on setCancelled.
+ */
+
 public class MemberTeleportHomeEvent extends EventWrapper {
 
     private final Member member;

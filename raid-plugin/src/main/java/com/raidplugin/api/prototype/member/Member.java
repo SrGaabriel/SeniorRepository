@@ -6,6 +6,11 @@ import org.bukkit.entity.Player;
 
 import java.util.UUID;
 
+/**
+ * That's a member. Member is a team's player.
+ * You can manage the values.
+ */
+
 public interface Member {
 
     Team getTeam();

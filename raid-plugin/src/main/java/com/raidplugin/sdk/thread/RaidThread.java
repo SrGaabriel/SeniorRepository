@@ -12,6 +12,11 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * That's thread alter/remove/apply on invites and raids.
+ * She work in minutes and search raids and invites that have been canceled.
+ */
+
 public class RaidThread {
 
     private final ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();

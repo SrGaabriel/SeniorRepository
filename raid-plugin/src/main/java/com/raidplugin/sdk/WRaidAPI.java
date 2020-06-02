@@ -3,11 +3,13 @@ package com.raidplugin.sdk;
 import com.raidplugin.api.RaidAPI;
 import com.raidplugin.api.manager.Manager;
 import com.raidplugin.api.prototype.Team;
+import com.raidplugin.api.prototype.invite.Invite;
 import com.raidplugin.api.prototype.member.Member;
 import com.raidplugin.api.prototype.raid.Raid;
 import com.raidplugin.api.prototype.wall.Wall;
 import com.raidplugin.api.repository.Repository;
 import com.raidplugin.sdk.manager.WallManager;
+import com.raidplugin.sdk.manager.invite.InviteManager;
 import com.raidplugin.sdk.manager.raid.RaidManager;
 import com.raidplugin.sdk.repository.TeamRepository;
 import com.raidplugin.sdk.repository.member.MemberRepository;
@@ -34,5 +36,10 @@ public class WRaidAPI implements RaidAPI {
     @Override
     public Repository<UUID, Member> getMembers() {
         return MemberRepository.getInstance();
+    }
+
+    @Override
+    public Manager<UUID, Invite> getInvites() {
+        return InviteManager.getInstance();
     }
 }

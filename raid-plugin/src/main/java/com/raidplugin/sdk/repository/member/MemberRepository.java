@@ -12,6 +12,14 @@ import java.util.UUID;
 
 public class MemberRepository implements Repository<UUID, Member> {
 
+    /**
+     * That's a member repository.
+     * You can get member with:
+     *  Team;
+     *  Player;
+     *  Team and Player.
+     */
+
     private static MemberRepository memberRepository;
 
     public static MemberRepository getInstance() {
@@ -47,11 +55,14 @@ public class MemberRepository implements Repository<UUID, Member> {
         } return null;
     }
 
-    public Member get(String name, Team team) {
-        for(Member member : memberMap.values()) {
-            if(member.getName().equalsIgnoreCase(name) &&
-                    member.getTeam().getName().equals(team.getName())) return member;
-        } return null;
+    public Member get(Player player, Team team) {
+        Member member = get(player);
+
+        if(member == null) return null;
+
+        if(member.getTeam().getName().equalsIgnoreCase(team.getName())) return member;
+
+        return null;
     }
 
     public Member get(Player player) {

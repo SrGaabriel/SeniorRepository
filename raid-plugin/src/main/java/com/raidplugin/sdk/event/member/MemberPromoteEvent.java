@@ -6,10 +6,15 @@ import com.raidplugin.sdk.event.wrapper.EventWrapper;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 
+/**
+ * This is an event to call on promotes.
+ * You can change the role to add.
+ */
+
 public class MemberPromoteEvent extends EventWrapper {
 
     private final Member member;
-    private final Role role;
+    private Role role;
     private final CommandSender author;
 
     public MemberPromoteEvent(Member member, Role role, CommandSender sender) {
@@ -28,5 +33,9 @@ public class MemberPromoteEvent extends EventWrapper {
 
     public Role getRole() {
         return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
     }
 }

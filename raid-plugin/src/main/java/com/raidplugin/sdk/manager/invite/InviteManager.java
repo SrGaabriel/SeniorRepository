@@ -11,6 +11,13 @@ import java.util.UUID;
 
 public class InviteManager implements Manager<UUID, Invite> {
 
+    /**
+     * That's a manager to change/add invites.
+     * You can get invites with:
+     *  Player.
+     *  Player and Team.
+     */
+
     private static InviteManager inviteManager;
 
     public static InviteManager getInstance() {

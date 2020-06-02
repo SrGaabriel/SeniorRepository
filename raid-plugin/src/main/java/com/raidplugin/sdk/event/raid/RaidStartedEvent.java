@@ -4,6 +4,11 @@ import com.raidplugin.api.prototype.raid.Raid;
 import com.raidplugin.sdk.event.wrapper.EventWrapper;
 import org.bukkit.Bukkit;
 
+/**
+ * This is an event to call on raid was started.
+ * You can cancel this on setCancelled.
+ */
+
 public class RaidStartedEvent extends EventWrapper {
 
     private final Raid raid;

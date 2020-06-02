@@ -62,6 +62,10 @@ public class RaidCommand extends Command {
                 }); return true;
             }
 
+            /**
+             * Below have commands to administrators.
+             */
+
             if(args[0].equalsIgnoreCase("admin")) {
                 if(!sender.hasPermission("raid.admin")) {
                     sender.sendMessage("§cHey! You not have permission to see info about commands admin."); return false;
@@ -76,6 +80,10 @@ public class RaidCommand extends Command {
                         " "
                 }); return true;
             }
+
+            /**
+             * Below have commands to player.
+             */
 
             if(args[0].equalsIgnoreCase("commands")) {
                 sender.sendMessage(new String[] {
@@ -122,24 +130,12 @@ public class RaidCommand extends Command {
         }
 
         if(args.length == 2) {
-            if(args[0].equalsIgnoreCase("setpower") || args[0].equalsIgnoreCase("setlevel")) {
-                if(!(sender instanceof Player)) return false;
 
-                Player player = (Player) sender;
-                Team team = toTeam(player);
-
-                if(team == null) {
-                    sender.sendMessage("§cYou location not have a plot some to a team!"); return false;
-                }
-
-                if(!NumberUtils.isNumber(args[1])) {
-                    sender.sendMessage("§cThe power is a not number!"); return false;
-                } int amount = Integer.parseInt(args[1]);
-
-                if(args[0].equalsIgnoreCase("setlevel")) team.setLevel(amount); else team.setPower(amount);
-
-                sender.sendMessage("§cSuccess! The team power was updated!"); return true;
-            }
+            /**
+             * Below have commands to players.
+             * Any player can execute.
+             * But, some commands require teams to execute.
+             */
 
             if(args[0].equalsIgnoreCase("create")) {
                 if(!(sender instanceof Player)) return false;
@@ -205,8 +201,30 @@ public class RaidCommand extends Command {
                 }); return true;
             }
 
+            /*
+             * Below have commands to administrators.
+             * Only senders that have permission: raid-admin can execute.
+             */
+
             if(!sender.hasPermission("raid.admin")) {
                 sender.sendMessage("§cKeep calm, you don't have permission to use this."); return false;
+            }
+
+            if(args[0].equalsIgnoreCase("setpower") || args[0].equalsIgnoreCase("setlevel")) {
+                if(!(sender instanceof Player)) return false;
+
+                Player player = (Player) sender;
+                Team target = toTeam(player);
+
+                if(target == null) {
+                    sender.sendMessage("§cYou location not have a plot some to a team!"); return false;
+                }
+
+                if(!NumberUtils.isNumber(args[1])) {
+                    sender.sendMessage("§cThe power is a not number!"); return false;
+                } int amount = Integer.parseInt(args[1]);
+
+                if(args[0].equalsIgnoreCase("setlevel")) team.setLevel(amount); else team.setPower(amount);
             }
 
             if(args[0].equalsIgnoreCase("delete")) {

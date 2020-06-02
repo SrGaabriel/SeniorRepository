@@ -4,6 +4,12 @@ import com.raidplugin.api.prototype.Team;
 import com.raidplugin.sdk.event.wrapper.EventWrapper;
 import org.bukkit.Bukkit;
 
+/**
+ * This is an event to call in upgrade of team.
+ * You can change power, level and event!
+ * To cancel, use setCancelled.
+ */
+
 public class TeamOptimizeLevelEvent extends EventWrapper {
 
     private final Team team;

@@ -10,6 +10,11 @@ import com.raidplugin.api.repository.Repository;
 
 import java.util.UUID;
 
+/**
+ * That's API to get raid's managers/repositories
+ * You can change/add/remove all elements.
+ */
+
 public interface RaidAPI {
 
     Manager<Integer[], Wall> getWalls();

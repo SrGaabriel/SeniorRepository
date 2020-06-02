@@ -9,6 +9,13 @@ import java.util.List;
 
 public class RaidManager implements Manager<Team, Raid> {
 
+    /**
+     * That's a manager to change/add raids.
+     * You can get raids with:
+     *  Victim team;
+     *  Attacker team.
+     */
+
     private static RaidManager raidManager;
 
     public static RaidManager getInstance() {

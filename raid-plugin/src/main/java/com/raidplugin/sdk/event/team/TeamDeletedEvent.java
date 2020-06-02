@@ -5,6 +5,11 @@ import com.raidplugin.sdk.event.wrapper.EventWrapper;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 
+/**
+ * This an event to call on team was deleted.
+ * You can cancel this on setCancelled.
+ */
+
 public class TeamDeletedEvent extends EventWrapper {
 
     private final Team team;
