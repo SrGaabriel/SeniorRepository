@@ -1,17 +1,17 @@
-package com.raidplugin.sdk.event;
+package com.raidplugin.sdk.event.member;
 
 import com.raidplugin.api.prototype.Team;
 import com.raidplugin.api.prototype.member.Member;
 import com.raidplugin.sdk.event.wrapper.EventWrapper;
 import org.bukkit.Bukkit;
 
-public class TeamKickMemberEvent extends EventWrapper {
+public class MemberTeleportHomeEvent extends EventWrapper {
 
-    private final Team team;
     private final Member member;
+    private final Team team;
 
-    public TeamKickMemberEvent(Team team, Member member) {
-        this.team = team; this.member = member;
+    public MemberTeleportHomeEvent(Member member, Team team) {
+        this.member = member; this.team = team;
 
         Bukkit.getPluginManager().callEvent(this);
     }

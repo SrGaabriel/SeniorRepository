@@ -4,7 +4,7 @@ import com.intellectualcrafters.plot.object.Plot;
 import com.raidplugin.api.prototype.Team;
 import com.raidplugin.api.prototype.member.Member;
 import com.raidplugin.api.prototype.raid.Raid;
-import com.raidplugin.api.prototype.type.Role;
+import com.raidplugin.api.prototype.member.type.Role;
 import com.raidplugin.api.prototype.wall.Wall;
 import com.raidplugin.sdk.manager.WallManager;
 import com.raidplugin.sdk.manager.raid.RaidManager;

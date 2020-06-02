@@ -18,7 +18,7 @@ public class RaidPlugin extends JavaPlugin {
         return getPlugin(RaidPlugin.class);
     }
 
-    private final File archive = Paths.get(getDataFolder() + "/database/database.json").toFile();
+    private final File teams = Paths.get(getDataFolder() + "/database/teams.json").toFile();
 
     private final TeamRepository teamRepository = TeamRepository.getInstance();
     private final JSONProvider jsonProvider = JSONProvider.getInstance();
@@ -29,15 +29,15 @@ public class RaidPlugin extends JavaPlugin {
     public void onLoad() {
         if(!getDataFolder().exists()) getDataFolder().mkdirs();
 
-        if(!archive.exists()) {
+        if(!teams.exists()) {
             try {
-                archive.createNewFile();
+                teams.createNewFile();
             } catch (IOException e) {
                 e.printStackTrace();
             } return;
         }
 
-        List<Team> teamList = jsonProvider.deserialize(List.class, archive);
+        List<Team> teamList = jsonProvider.deserialize(List.class, teams);
 
         teamRepository.putAll(teamList);
 
@@ -55,7 +55,7 @@ public class RaidPlugin extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        jsonProvider.serialize(teamRepository.getMap().values(), archive, List.class);
+        jsonProvider.serialize(teamRepository.getMap().values(), teams, List.class);
     }
 
 }

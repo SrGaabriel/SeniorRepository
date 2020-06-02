@@ -12,6 +12,8 @@ public interface Manager<K, V> {
 
     void remove(V value);
 
+    void removeAll(List<V> collection);
+
     V get(K key);
 
 }

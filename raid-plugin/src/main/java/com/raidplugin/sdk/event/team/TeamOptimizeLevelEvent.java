@@ -1,16 +1,16 @@
-package com.raidplugin.sdk.event;
+package com.raidplugin.sdk.event.team;
 
 import com.raidplugin.api.prototype.Team;
 import com.raidplugin.sdk.event.wrapper.EventWrapper;
 import org.bukkit.Bukkit;
 
-public class TeamIncreaseLevelEvent extends EventWrapper {
+public class TeamOptimizeLevelEvent extends EventWrapper {
 
     private final Team team;
     private int power;
     private int level;
 
-    public TeamIncreaseLevelEvent(Team team, int power, int level) {
+    public TeamOptimizeLevelEvent(Team team, int power, int level) {
         this.team = team; this.power = power; this.level = level;
 
         Bukkit.getPluginManager().callEvent(this);

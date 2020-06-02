@@ -38,6 +38,11 @@ public class RaidManager implements Manager<Team, Raid> {
     }
 
     @Override
+    public void removeAll(List<Raid> collection) {
+        raidList.removeAll(collection);
+    }
+
+    @Override
     public Raid get(Team key) {
         for (Raid raid : raidList) {
             if(isSameTeam(raid.getAttacker(), key) || isSameTeam(raid.getVictim(), key)) return raid;

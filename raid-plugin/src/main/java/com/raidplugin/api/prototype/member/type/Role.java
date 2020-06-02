@@ -1,4 +1,4 @@
-package com.raidplugin.api.prototype.type;
+package com.raidplugin.api.prototype.member.type;
 
 public enum Role {
     MEMBER,

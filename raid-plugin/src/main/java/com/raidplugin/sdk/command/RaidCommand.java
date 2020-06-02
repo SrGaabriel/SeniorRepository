@@ -4,8 +4,13 @@ import com.intellectualcrafters.plot.api.PlotAPI;
 import com.intellectualcrafters.plot.object.Plot;
 import com.raidplugin.api.prototype.Team;
 import com.raidplugin.api.prototype.member.Member;
-import com.raidplugin.api.prototype.type.Role;
-import com.raidplugin.sdk.event.*;
+import com.raidplugin.api.prototype.member.type.Role;
+import com.raidplugin.sdk.event.member.MemberPromoteEvent;
+import com.raidplugin.sdk.event.member.MemberQuitTeamEvent;
+import com.raidplugin.sdk.event.member.MemberTeleportHomeEvent;
+import com.raidplugin.sdk.event.team.TeamDeletedEvent;
+import com.raidplugin.sdk.event.team.TeamKickMemberEvent;
+import com.raidplugin.sdk.event.team.TeamOptimizeLevelEvent;
 import com.raidplugin.sdk.prototype.factory.PrototypeFactory;
 import com.raidplugin.sdk.provider.TeamProvider;
 import com.raidplugin.sdk.repository.TeamRepository;
@@ -90,13 +95,11 @@ public class RaidCommand extends Command {
                 }); return true;
             } if(!(sender instanceof Player)) return false;
 
-            Player player = (Player) sender;
-
             Member author = toAuthor(sender);
             Team team = author.getTeam();
 
             if(args[0].equalsIgnoreCase("leave")) {
-                new MemberLeaveTeamEvent(author, team); return true;
+                new MemberQuitTeamEvent(author, team); return true;
             }
 
             if(args[0].equalsIgnoreCase("home")) {
@@ -114,7 +117,7 @@ public class RaidCommand extends Command {
             if(args[0].equalsIgnoreCase("increase")) {
                 if(!teamProvider.isPossible(author.getTeam())) {
                     sender.sendMessage("§cYour team not have the need power to deploy a new level!"); return false;
-                } new TeamIncreaseLevelEvent(team, teamProvider.getNeed(team), team.getLevel() + 1); return true;
+                } new TeamOptimizeLevelEvent(team, teamProvider.getNeed(team), team.getLevel() + 1); return true;
             }
         }
 
@@ -180,7 +183,7 @@ public class RaidCommand extends Command {
 
                 if(target.getRole() == Role.MOD || target.getRole() == Role.OWNER) {
                     sender.sendMessage("§cThat member are Administrator!"); return false;
-                } new TeamPromoteMemberEvent(author.getTeam(), target);
+                } new MemberPromoteEvent(target, Role.MOD, sender);
 
                 sender.sendMessage("§aSuccess! The member was promoted!"); return true;
             }
@@ -207,7 +210,7 @@ public class RaidCommand extends Command {
             }
 
             if(args[0].equalsIgnoreCase("delete")) {
-                new TeamWasDeletedEvent(team, sender);
+                new TeamDeletedEvent(team, sender);
             } else if(args[0].equalsIgnoreCase("teleport")) {
                 if(!(sender instanceof Player)) return false;
 

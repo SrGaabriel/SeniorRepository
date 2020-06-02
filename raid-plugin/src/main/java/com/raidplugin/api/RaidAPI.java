@@ -2,6 +2,7 @@ package com.raidplugin.api;
 
 import com.raidplugin.api.manager.Manager;
 import com.raidplugin.api.prototype.Team;
+import com.raidplugin.api.prototype.invite.Invite;
 import com.raidplugin.api.prototype.member.Member;
 import com.raidplugin.api.prototype.raid.Raid;
 import com.raidplugin.api.prototype.wall.Wall;
@@ -18,5 +19,7 @@ public interface RaidAPI {
     Repository<String, Team> getTeams();
 
     Repository<UUID, Member> getMembers();
+
+    Manager<UUID, Invite> getInvites();
 
 }

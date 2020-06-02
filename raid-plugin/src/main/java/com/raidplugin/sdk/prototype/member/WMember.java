@@ -2,7 +2,7 @@ package com.raidplugin.sdk.prototype.member;
 
 import com.raidplugin.api.prototype.Team;
 import com.raidplugin.api.prototype.member.Member;
-import com.raidplugin.api.prototype.type.Role;
+import com.raidplugin.api.prototype.member.type.Role;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 

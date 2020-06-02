@@ -38,6 +38,11 @@ public class WallManager implements Manager<Integer[], Wall> {
     }
 
     @Override
+    public void removeAll(List<Wall> collection) {
+        wallList.removeAll(collection);
+    }
+
+    @Override
     public Wall get(Integer... key) {
         for(Wall wall : wallList) {
             if(isSameVector(wall, key)) return wall;

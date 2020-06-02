@@ -1,4 +1,4 @@
-package com.raidplugin.sdk.event;
+package com.raidplugin.sdk.event.member;
 
 import com.raidplugin.api.prototype.Team;
 import com.raidplugin.api.prototype.member.Member;
@@ -6,12 +6,12 @@ import com.raidplugin.sdk.event.wrapper.EventWrapper;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
-public class MemberLeaveTeamEvent extends EventWrapper {
+public class MemberQuitTeamEvent extends EventWrapper {
 
     private final Member member;
     private final Team team;
 
-    public MemberLeaveTeamEvent(Member member, Team team) {
+    public MemberQuitTeamEvent(Member member, Team team) {
         this.member = member; this.team = team;
 
         Bukkit.getPluginManager().callEvent(this);
